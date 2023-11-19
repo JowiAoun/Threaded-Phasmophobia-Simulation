@@ -32,7 +32,6 @@ void ghostToString(enum GhostClass, char*); // Convert a ghost type to a string,
 void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to a string, stored in output parameter
 
 //* Functions: logger.c
-//! eee
 void l_hunterInit(char* name, enum EvidenceType equipment);
 void l_hunterMove(char* name, char* room);
 void l_hunterReview(char* name, enum LoggerDetails reviewResult);

@@ -1,7 +1,6 @@
 #include "defs.h"
 
-int main()
-{
+int main() {
     // Initialize the random number generator
     srand(time(NULL));
 
@@ -11,6 +10,8 @@ int main()
     initHouse(&house);
     populateRooms(&house);
 
+    char[MAX_STR] hunterName;
+    
+
     return 0;
 }
-
