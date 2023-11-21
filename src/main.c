@@ -11,11 +11,12 @@ int main() {
   populateRooms(&house);
 
   char hunterName[MAX_STR];
-  for (int i = 0; i < 4; i++) {
+  for (int i = 1; i < 5; i++) {
+    printf("\nEnter the name of hunter %d:", i);
     scanf("%s", hunterName);
     while (getchar() != '\n');
   }
   
 
-  return 0;
+  return C_TRUE;
 }
