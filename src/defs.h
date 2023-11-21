@@ -19,15 +19,44 @@
 
 typedef enum EvidenceType EvidenceType;
 typedef enum GhostClass GhostClass;
-typedef RoomType RoomType;
-typedef HouseType HouseType;
-typedef GhostType GhostType;
-typedef HunterType HunterType;
-typedef RoomNode RoomNode;
+
+typedef Room RoomType;
+typedef House HouseType;
+typedef Ghost GhostType;
+typedef Hunter HunterType;
+typedef Node NodeType;
+typedef RoomNode RoomNodeType;
+typedef EvidenceNode EvidenceNodeType;
+typedef HunterArray HunterArrayType;
 
 enum EvidenceType { EMF, TEMPERATURE, FINGERPRINTS, SOUND, EV_COUNT, EV_UNKNOWN };
 enum GhostClass { POLTERGEIST, BANSHEE, BULLIES, PHANTOM, GHOST_COUNT, GH_UNKNOWN };
 enum LoggerDetails { LOG_FEAR, LOG_BORED, LOG_EVIDENCE, LOG_SUFFICIENT, LOG_INSUFFICIENT, LOG_UNKNOWN };
+
+//* Structures
+struct Room {
+  char              name[MAX_STR];
+  HunterArrayType*  hunters;
+  GhostType*        ghost;
+  RoomNodeType*     nextRoom;
+  RoomNodeType*     prevRoom;
+  EvidenceNodeType* nextEvidence;
+  EvidenceNodeType* prevEvidence;
+};
+
+struct House {
+  HunterArrayType*  hunters;
+  RoomNodeType*     nextRoom;
+  RoomNodeType*     prevRoom;
+  EvidenceNodeType* nextEvidence;
+  EvidenceNodeType* prevEvidence;
+};
+
+struct Ghost {
+  GhostClass* ghostClass;
+  RoomType*   currentRoom;
+  int         boredom;
+};
 
 
 //* Functions: utils.c
