@@ -19,10 +19,16 @@
 
 typedef enum EvidenceType EvidenceType;
 typedef enum GhostClass GhostClass;
+typedef RoomType RoomType;
+typedef HouseType HouseType;
+typedef GhostType GhostType;
+typedef HunterType HunterType;
+typedef RoomNode RoomNode;
 
 enum EvidenceType { EMF, TEMPERATURE, FINGERPRINTS, SOUND, EV_COUNT, EV_UNKNOWN };
 enum GhostClass { POLTERGEIST, BANSHEE, BULLIES, PHANTOM, GHOST_COUNT, GH_UNKNOWN };
 enum LoggerDetails { LOG_FEAR, LOG_BORED, LOG_EVIDENCE, LOG_SUFFICIENT, LOG_INSUFFICIENT, LOG_UNKNOWN };
+
 
 //* Functions: utils.c
 int randInt(int,int);        // Pseudo-random number generator function
