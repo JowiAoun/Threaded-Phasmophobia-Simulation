@@ -1,3 +1,10 @@
 18/11/2023
 - Created makefile
 - Created ghost.c, hunter.c
+
+20/11/2023
+- Created typedefs and function prototypes
+- CHECKUP.md
+- Completed: main.c - 1.1, 1.2
+- Attempted: 1.3
+- house.c: 'house' has no auto complete, verify with compiler

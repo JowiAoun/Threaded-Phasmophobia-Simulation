@@ -23,11 +23,9 @@ typedef enum GhostClass GhostClass;
 typedef Room RoomType;
 typedef House HouseType;
 typedef Ghost GhostType;
-typedef Hunter HunterType;
 typedef Node NodeType;
 typedef RoomNode RoomNodeType;
 typedef EvidenceNode EvidenceNodeType;
-typedef HunterArray HunterArrayType;
 
 enum EvidenceType { EMF, TEMPERATURE, FINGERPRINTS, SOUND, EV_COUNT, EV_UNKNOWN };
 enum GhostClass { POLTERGEIST, BANSHEE, BULLIES, PHANTOM, GHOST_COUNT, GH_UNKNOWN };
@@ -36,7 +34,7 @@ enum LoggerDetails { LOG_FEAR, LOG_BORED, LOG_EVIDENCE, LOG_SUFFICIENT, LOG_INSU
 //* Structures
 struct Room {
   char              name[MAX_STR];
-  HunterArrayType*  hunters;
+  HunterType*       hunters[NUM_HUNTERS];
   GhostType*        ghost;
   RoomNodeType*     nextRoom;
   RoomNodeType*     prevRoom;
@@ -45,7 +43,7 @@ struct Room {
 };
 
 struct House {
-  HunterArrayType*  hunters;
+  HunterType*       hunters[NUM_HUNTERS];
   RoomNodeType*     nextRoom;
   RoomNodeType*     prevRoom;
   EvidenceNodeType* nextEvidence;
@@ -65,6 +63,7 @@ float randFloat(float, float);  // Pseudo-random float generator function
 enum GhostClass randomGhost();  // Return a randomly selected a ghost type
 void ghostToString(enum GhostClass, char*); // Convert a ghost type to a string, stored in output paremeter
 void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to a string, stored in output parameter
+void* allocMemory(size_t size);
 
 //* Functions: logger.c
 void l_hunterInit(char* name, enum EvidenceType equipment);
@@ -76,3 +75,10 @@ void l_ghostInit(enum GhostClass type, char* room);
 void l_ghostMove(char* room);
 void l_ghostEvidence(enum EvidenceType evidence, char* room);
 void l_ghostExit(enum LoggerDetails reason);
+
+//* Functions: house.c
+void initHouse(HouseType* house);
+void populateRooms(HouseType* house);
+RoomType* createRoom(char name[]);
+void connectRooms();
+void addRoom();

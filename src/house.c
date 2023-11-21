@@ -54,3 +54,9 @@ void populateRooms(HouseType* house) {
   addRoom(&house->rooms, garage);
   addRoom(&house->rooms, utility_room);
 }
+
+void initHouse(HouseType* house) {
+  HouseType* house = (HouseType*)allocMemory(sizeof(HouseType));
+  //TODO: house won't have autocomplete
+
+}

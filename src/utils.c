@@ -87,3 +87,20 @@ void ghostToString(enum GhostClass ghost, char* buffer) {
     
   }
 }
+
+/* 
+  Function: Allocate memory
+  Purpose:  Allocates memory for a number of bytes and returns a pointer to it.
+            If allocation fails, exits program with error code 1 (EXIT_FAILURE)
+            This function was created by Jowi, for the assignment 4
+  Params:
+    Input: size_t size - the size of the memory to allocate
+*/
+void* allocMemory(size_t size) {
+  void* ptr = malloc(size);
+  if (ptr == NULL) {
+    printf("FATAL ERROR: Memory allocation failed.\n");
+    exit(EXIT_FAILURE);
+  }
+  return ptr;
+}
