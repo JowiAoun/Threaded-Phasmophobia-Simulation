@@ -4,6 +4,7 @@
   Dynamically allocates several rooms and populates the provided house.
   Note: You may modify this as long as room names and connections are maintained.
       out: house - the house to populate with rooms. Assumes house has been initialized.
+      HAS BEEN MODIFIED - '&house->rooms' to '&house->roomList'
 */
 void populateRooms(HouseType* house) {
   // First, create each room
@@ -40,24 +41,29 @@ void populateRooms(HouseType* house) {
   connectRooms(garage, utility_room);
 
   // Add each room to the house's room list
-  addRoom(&house->rooms, van);
-  addRoom(&house->rooms, hallway);
-  addRoom(&house->rooms, master_bedroom);
-  addRoom(&house->rooms, boys_bedroom);
-  addRoom(&house->rooms, bathroom);
-  addRoom(&house->rooms, basement);
-  addRoom(&house->rooms, basement_hallway);
-  addRoom(&house->rooms, right_storage_room);
-  addRoom(&house->rooms, left_storage_room);
-  addRoom(&house->rooms, kitchen);
-  addRoom(&house->rooms, living_room);
-  addRoom(&house->rooms, garage);
-  addRoom(&house->rooms, utility_room);
+  addRoom(&house->roomList, van);
+  addRoom(&house->roomList, hallway);
+  addRoom(&house->roomList, master_bedroom);
+  addRoom(&house->roomList, boys_bedroom);
+  addRoom(&house->roomList, bathroom);
+  addRoom(&house->roomList, basement);
+  addRoom(&house->roomList, basement_hallway);
+  addRoom(&house->roomList, right_storage_room);
+  addRoom(&house->roomList, left_storage_room);
+  addRoom(&house->roomList, kitchen);
+  addRoom(&house->roomList, living_room);
+  addRoom(&house->roomList, garage);
+  addRoom(&house->roomList, utility_room);
 }
 
 void initHouse(HouseType* house) {
   HouseType* house = (HouseType*)allocMemory(sizeof(HouseType));
   
-  house->rooms
+  initRoomList(house->roomList);
+  initEvidenceList(house->evidenceList);
+}
 
+void initRoomList(RoomListType* roomList) {
+  roomList->head = NULL;
+	roomList->tail = NULL;
 }

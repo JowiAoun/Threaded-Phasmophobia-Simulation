@@ -38,14 +38,14 @@ struct Room {
   char              name[MAX_STR];
   HunterType*       hunters[NUM_HUNTERS];
   GhostType*        ghost;
-  RoomListType*     roomList; //Room connected
+  RoomListType*     roomList; // rooms connected to this one
   EvidenceListType* evidenceList;
 
 };
 
 struct House {
   HunterType*       hunters[NUM_HUNTERS];
-  RoomListType*     rooms;
+  RoomListType*     roomList; // all rooms in the house
   EvidenceListType* evidenceList;
 };
 
@@ -91,6 +91,7 @@ enum GhostClass randomGhost();  // Return a randomly selected a ghost type
 void ghostToString(enum GhostClass, char*); // Convert a ghost type to a string, stored in output paremeter
 void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to a string, stored in output parameter
 void* allocMemory(size_t size);
+void initEvidenceList(EvidenceListType* evidenceList);
 
 //* Functions: logger.c
 void l_hunterInit(char* name, enum EvidenceType equipment);
@@ -105,6 +106,7 @@ void l_ghostExit(enum LoggerDetails reason);
 
 //* Functions: house.c
 void initHouse(HouseType* house);
+void initRoomList(RoomListType* roomList);
 void populateRooms(HouseType* house);
 RoomType* createRoom(char name[]);
 void connectRooms();
