@@ -20,12 +20,12 @@
 typedef enum EvidenceType EvidenceType;
 typedef enum GhostClass GhostClass;
 
-typedef Room RoomType;
-typedef House HouseType;
-typedef Ghost GhostType;
-typedef Node NodeType;
-typedef RoomNode RoomNodeType;
-typedef EvidenceNode EvidenceNodeType;
+typedef struct Room RoomType;
+typedef struct House HouseType;
+typedef struct Ghost GhostType;
+typedef struct Hunter HunterType;
+typedef struct RoomNode RoomNodeType;
+typedef struct EvidenceNode EvidenceNodeType;
 
 enum EvidenceType { EMF, TEMPERATURE, FINGERPRINTS, SOUND, EV_COUNT, EV_UNKNOWN };
 enum GhostClass { POLTERGEIST, BANSHEE, BULLIES, PHANTOM, GHOST_COUNT, GH_UNKNOWN };
@@ -56,6 +56,25 @@ struct Ghost {
   int         boredom;
 };
 
+struct Hunter {
+  char              name[MAX_STR];
+  EvidenceType      equipment;
+  RoomType*         room;
+  EvidenceNodeType* nextEvidence;
+  EvidenceNodeType* prevEvidence;
+  int               fear;
+  int               boredom;
+};
+
+struct RoomNode {
+  RoomType* data;
+  RoomType* next;
+};
+
+struct EvidenceNode {
+  EvidenceType*  data;
+  EvidenceType*  next;
+};
 
 //* Functions: utils.c
 int randInt(int,int);        // Pseudo-random number generator function

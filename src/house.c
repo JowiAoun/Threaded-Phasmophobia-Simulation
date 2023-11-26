@@ -57,6 +57,5 @@ void populateRooms(HouseType* house) {
 
 void initHouse(HouseType* house) {
   HouseType* house = (HouseType*)allocMemory(sizeof(HouseType));
-  //TODO: house won't have autocomplete
-
+  
 }
