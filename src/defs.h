@@ -84,6 +84,7 @@ struct EvidenceList {
   EvidenceNodeType* tail;
 };
 
+
 //* Functions: utils.c
 int randInt(int,int);        // Pseudo-random number generator function
 float randFloat(float, float);  // Pseudo-random float generator function
@@ -92,6 +93,7 @@ void ghostToString(enum GhostClass, char*); // Convert a ghost type to a string,
 void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to a string, stored in output parameter
 void* allocMemory(size_t size);
 void initEvidenceList(EvidenceListType* evidenceList);
+
 
 //* Functions: logger.c
 void l_hunterInit(char* name, enum EvidenceType equipment);
@@ -104,13 +106,29 @@ void l_ghostMove(char* room);
 void l_ghostEvidence(enum EvidenceType evidence, char* room);
 void l_ghostExit(enum LoggerDetails reason);
 
+
 //* Functions: house.c
 void initHouse(HouseType* house);
 void initRoomList(RoomListType* roomList);
+/*
+  Function: Populate Rooms
+  Purpose:  Dynamically allocates several rooms and populates the provided house.
+            HAS BEEN MODIFIED - '&house->rooms' to '&house->roomList'
+  Params:
+    out: house - the house to populate with rooms. Assumes house has been initialized.
+*/
 void populateRooms(HouseType* house);
 RoomType* createRoom(char name[]);
 void connectRooms(RoomType* room1, RoomType* room2);
-void addRoom();
+/* 
+  Function: Add Room
+  Purpose:  Adds a RoomType to a RoomListType by allocating heap space for a RoomNodeType.
+  Params:   
+    Input: RoomListType* roomList - the list to add the room to
+    Input: RoomType* room - the room to be added
+*/
+void addRoom(RoomListType* roomList, RoomType* room);
+
 
 //* Functions: hunter.c
 void addHunter(char* name, enum EvidenceType equipment, RoomType* room, EvidenceListType* evidenceList);

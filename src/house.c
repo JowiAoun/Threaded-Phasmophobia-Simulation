@@ -1,11 +1,5 @@
 #include "defs.h"
 
-/*
-  Dynamically allocates several rooms and populates the provided house.
-  Note: You may modify this as long as room names and connections are maintained.
-      out: house - the house to populate with rooms. Assumes house has been initialized.
-      HAS BEEN MODIFIED - '&house->rooms' to '&house->roomList'
-*/
 
 RoomType* createRoom(char name[]){
   RoomType* room = (RoomType*)allocMemory(sizeof(RoomType));
@@ -18,11 +12,31 @@ RoomType* createRoom(char name[]){
   return room;
 }
 
-void connectRooms(RoomType* room1, RoomType* room2){
-
-
+void connectRooms(RoomType* room1, RoomType* room2) {
+  addRoom(room1->roomList, room2);
+  addRoom(room2->roomList, room1);
 }
 
+void addRoom(RoomListType *roomList, RoomType *room) {
+	// Create new node with ghost data to add at the end of linked list
+	RoomNodeType* newNode = (RoomNodeType*)allocMemory(sizeof(RoomNodeType));
+	
+	// Set node's fields
+	newNode->next = NULL;
+	newNode->data = room;
+
+	// Define if the list has 0 or more elements
+	if (roomList->head == NULL) {
+		// Case: 0 nodes
+		roomList->head = newNode;
+		roomList->tail = newNode;
+
+	} else {
+		// Case: >=1 nodes
+		roomList->tail->next = newNode;
+		roomList->tail = newNode;
+	}
+}
 
 void populateRooms(HouseType* house) {
   // First, create each room

@@ -16,6 +16,8 @@ int main() {
     printf("\nEnter the name of hunter %d: ", i);
     scanf("%s", hunterName);
     while (getchar() != '\n');
+
+    // addHunter(hunterName, );
   }
 
   return C_TRUE;
