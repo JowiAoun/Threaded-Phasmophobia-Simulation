@@ -36,8 +36,9 @@ struct Room {
   char              name[MAX_STR];
   HunterType*       hunters[NUM_HUNTERS];
   GhostType*        ghost;
-  RoomNodeType*     nextRoom;
-  RoomNodeType*     prevRoom;
+  // RoomNodeType*     nextRoom;
+  // RoomNodeType*     prevRoom;
+  RoomNodeType*     roomConnections;
   EvidenceNodeType* nextEvidence;
   EvidenceNodeType* prevEvidence;
 };
