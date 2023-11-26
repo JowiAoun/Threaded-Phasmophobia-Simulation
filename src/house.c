@@ -58,4 +58,6 @@ void populateRooms(HouseType* house) {
 void initHouse(HouseType* house) {
   HouseType* house = (HouseType*)allocMemory(sizeof(HouseType));
   
+  house->rooms
+
 }

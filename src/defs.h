@@ -38,16 +38,15 @@ struct Room {
   char              name[MAX_STR];
   HunterType*       hunters[NUM_HUNTERS];
   GhostType*        ghost;
-  RoomListType*     roomConnections;
-  EvidenceNodeType* nextEvidence;
-  EvidenceNodeType* prevEvidence;
+  RoomListType*     roomList; //Room connected
+  EvidenceListType* evidenceList;
+
 };
 
 struct House {
   HunterType*       hunters[NUM_HUNTERS];
   RoomListType*     rooms;
-  EvidenceNodeType* nextEvidence;
-  EvidenceNodeType* prevEvidence;
+  EvidenceListType* evidenceList;
 };
 
 struct Ghost {
@@ -60,8 +59,7 @@ struct Hunter {
   char              name[MAX_STR];
   EvidenceType      equipment;
   RoomType*         room;
-  EvidenceNodeType* nextEvidence;
-  EvidenceNodeType* prevEvidence;
+  EvidenceListType* evidenceList;
   int               fear;
   int               boredom;
 };
