@@ -6,11 +6,30 @@
       out: house - the house to populate with rooms. Assumes house has been initialized.
       HAS BEEN MODIFIED - '&house->rooms' to '&house->roomList'
 */
+
+RoomType* createRoom(char name[]){
+  RoomType* room = (RoomType*)allocMemory(sizeof(RoomType));
+  
+  strncpy(room->name, name, MAX_STR);
+  room->ghost = NULL;
+  initRoomList(room->roomList);
+  initEvidenceList(room->evidenceList);
+
+  return room;
+}
+
+void connectRooms(RoomType* room1, RoomType* room2){
+
+
+}
+
+
 void populateRooms(HouseType* house) {
   // First, create each room
 
   // createRoom assumes that we dynamically allocate a room, initializes the values, and returns a RoomType*
   // create functions are pretty typical, but it means errors are harder to return aside from NULL
+  
   struct Room* van                = createRoom("Van");
   struct Room* hallway            = createRoom("Hallway");
   struct Room* master_bedroom     = createRoom("Master Bedroom");

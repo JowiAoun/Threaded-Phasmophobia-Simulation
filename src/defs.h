@@ -109,5 +109,8 @@ void initHouse(HouseType* house);
 void initRoomList(RoomListType* roomList);
 void populateRooms(HouseType* house);
 RoomType* createRoom(char name[]);
-void connectRooms();
+void connectRooms(RoomType* room1, RoomType* room2);
 void addRoom();
+
+//* Functions: hunter.c
+void addHunter(char* name, enum EvidenceType equipment, RoomType* room, EvidenceListType* evidenceList);
