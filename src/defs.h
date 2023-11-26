@@ -25,7 +25,9 @@ typedef struct House HouseType;
 typedef struct Ghost GhostType;
 typedef struct Hunter HunterType;
 typedef struct RoomNode RoomNodeType;
+typedef struct RoomList RoomListType;
 typedef struct EvidenceNode EvidenceNodeType;
+typedef struct EvidenceList EvidenceListType;
 
 enum EvidenceType { EMF, TEMPERATURE, FINGERPRINTS, SOUND, EV_COUNT, EV_UNKNOWN };
 enum GhostClass { POLTERGEIST, BANSHEE, BULLIES, PHANTOM, GHOST_COUNT, GH_UNKNOWN };
@@ -36,17 +38,14 @@ struct Room {
   char              name[MAX_STR];
   HunterType*       hunters[NUM_HUNTERS];
   GhostType*        ghost;
-  // RoomNodeType*     nextRoom;
-  // RoomNodeType*     prevRoom;
-  RoomNodeType*     roomConnections;
+  RoomListType*     roomConnections;
   EvidenceNodeType* nextEvidence;
   EvidenceNodeType* prevEvidence;
 };
 
 struct House {
   HunterType*       hunters[NUM_HUNTERS];
-  RoomNodeType*     nextRoom;
-  RoomNodeType*     prevRoom;
+  RoomListType*     rooms;
   EvidenceNodeType* nextEvidence;
   EvidenceNodeType* prevEvidence;
 };
@@ -68,13 +67,23 @@ struct Hunter {
 };
 
 struct RoomNode {
-  RoomType* data;
-  RoomType* next;
+  RoomNodeType* next;
+  RoomType*     data;
+};
+
+struct RoomList {
+  RoomNodeType* head;
+  RoomNodeType* tail;
 };
 
 struct EvidenceNode {
-  EvidenceType*  data;
-  EvidenceType*  next;
+  EvidenceNodeType*  next;
+  EvidenceType*      data;
+};
+
+struct EvidenceList {
+  EvidenceNodeType* head;
+  EvidenceNodeType* tail;
 };
 
 //* Functions: utils.c
