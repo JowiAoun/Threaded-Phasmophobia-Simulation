@@ -132,3 +132,8 @@ void addRoom(RoomListType* roomList, RoomType* room);
 //* Functions: hunter.c
 void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
                 EvidenceListType* evidenceList, HunterType** hunter);
+
+
+//* Functions: ghost.c
+initGhost(GhostType** ghost);
+addGhost(RoomListType* roomList, GhostType** ghost);

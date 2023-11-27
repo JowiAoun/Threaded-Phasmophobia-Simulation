@@ -12,7 +12,6 @@ int main() {
 
   // 1.1 & 1.3
   HunterType** hunter;
-  GhostType** ghost;
   char hunterName[MAX_STR];
   for (int i = 1; i < 5; i++) {
     printf("\nEnter the name of hunter %d: ", i);
@@ -23,7 +22,9 @@ int main() {
   }
 
   //1.4 - Initialize and add ghost to a room
-
+  GhostType** ghost;
+  initGhost(ghost);
+  addGhost(house.roomList, ghost);
 
   return C_TRUE;
 }
