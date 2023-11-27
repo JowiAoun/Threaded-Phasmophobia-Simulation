@@ -109,15 +109,6 @@ void l_ghostExit(enum LoggerDetails reason);
 //* Functions: house.c
 void initHouse(HouseType* house);
 void initRoomList(RoomListType* roomList);
-// RoomType* getRandomRoom(HouseType* house);
-
-/*
-  Function: Populate Rooms
-  Purpose:  Dynamically allocates several rooms and populates the provided house.
-            HAS BEEN MODIFIED - '&house->rooms' to '&house->roomList'
-  Params:
-    out: house - the house to populate with rooms. Assumes house has been initialized.
-*/
 void populateRooms(HouseType* house);
 RoomType* createRoom(char name[]);
 void connectRooms(RoomType* room1, RoomType* room2);
@@ -137,5 +128,5 @@ void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
 
 
 //* Functions: ghost.c
-initGhost(GhostType** ghost);
-addGhost(RoomListType* roomList, GhostType** ghost);
+void initGhost(GhostType** ghost);
+void addGhost(RoomListType* roomList, GhostType** ghost);
