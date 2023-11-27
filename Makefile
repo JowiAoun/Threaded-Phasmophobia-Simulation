@@ -3,8 +3,8 @@
 
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror -g
-OBJ=main.o ghost.o hunter.o house.o logger.o utils.o
-EXE=final
+OBJ=./out/main.o ./out/ghost.o ./out/hunter.o ./out/house.o ./out/logger.o ./out/utils.o
+EXE=final.exe
 
 all: $(EXE)
 

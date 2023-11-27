@@ -49,7 +49,7 @@ struct House {
 };
 
 struct Ghost {
-  GhostClass* ghostClass;
+  GhostClass ghostClass;
   RoomType*   currentRoom;
   int         boredom;
 };
@@ -121,7 +121,7 @@ void connectRooms(RoomType* room1, RoomType* room2);
     Input: RoomListType* roomList - the list to add the room to
     Input: RoomType* room - the room to be added
 */
-void addRoom(RoomListType* roomList, RoomType* room);
+void addRoom(RoomListType** roomList, RoomType* room);
 
 
 //* Functions: hunter.c

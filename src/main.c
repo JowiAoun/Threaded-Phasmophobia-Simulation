@@ -11,19 +11,19 @@ int main() {
   populateRooms(&house); // 1.2
 
   // 1.1 & 1.3 - Get user input and place hunters in van room
-  HunterType** hunter;
+  HunterType** hunter = NULL;
   char hunterName[MAX_STR];
   for (int i = 0; i < 4; i++) {
     printf("\nEnter the name of hunter %d: ", i+1);
     scanf("%s", hunterName);
     while (getchar() != '\n');
     
-    initHunter(hunterName, 0, house.roomList->head, house.evidenceList, hunter); //? temp: replace argument 2 with specifications
+    initHunter(hunterName, 0, house.roomList->head->data, house.evidenceList, hunter); //? temp: replace argument 2 with specifications
     house.hunters[i] = *hunter;
   }
 
   // 1.4 - Initialize and add ghost to a room
-  GhostType** ghost;
+  GhostType** ghost = NULL;
   initGhost(ghost);
   addGhost(house.roomList, ghost);
 

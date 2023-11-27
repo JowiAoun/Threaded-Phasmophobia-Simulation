@@ -108,4 +108,5 @@ void* allocMemory(size_t size) {
 void initEvidenceList(EvidenceListType* evidenceList) {
   evidenceList->head = NULL;
   evidenceList->tail = NULL;
+  evidenceList->size = 0;
 }

@@ -13,11 +13,11 @@ RoomType* createRoom(char name[]){
 }
 
 void connectRooms(RoomType* room1, RoomType* room2) {
-  addRoom(room1->roomList, room2);
-  addRoom(room2->roomList, room1);
+  addRoom(&room1->roomList, room2);
+  addRoom(&room2->roomList, room1);
 }
 
-void addRoom(RoomListType *roomList, RoomType *room) {
+void addRoom(RoomListType** roomList, RoomType *room) {
 	// Create new node with ghost data to add at the end of linked list
 	RoomNodeType* newNode = (RoomNodeType*)allocMemory(sizeof(RoomNodeType));
 	
@@ -26,17 +26,17 @@ void addRoom(RoomListType *roomList, RoomType *room) {
 	newNode->data = room;
 
 	// Define if the list has 0 or more elements
-	if (roomList->head == NULL) {
+	if ((*roomList)->head == NULL) {
 		// Case: 0 nodes
-		roomList->head = newNode;
-		roomList->tail = newNode;
+		(*roomList)->head = newNode;
+		(*roomList)->tail = newNode;
 
 	} else {
 		// Case: >=1 nodes
-		roomList->tail->next = newNode;
-		roomList->tail = newNode;
+		(*roomList)->tail->next = newNode;
+		(*roomList)->tail = newNode;
 	}
-  roomList->size++;
+  (*roomList)->size++;
 }
 
 void populateRooms(HouseType* house) {
@@ -90,7 +90,7 @@ void populateRooms(HouseType* house) {
 }
 
 void initHouse(HouseType* house) {
-  HouseType* house = (HouseType*)allocMemory(sizeof(HouseType));
+  house = (HouseType*)allocMemory(sizeof(HouseType));
   
   initRoomList(house->roomList);
   initEvidenceList(house->evidenceList);
