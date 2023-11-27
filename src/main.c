@@ -10,15 +10,20 @@ int main() {
   initHouse(&house);
   populateRooms(&house); // 1.2
 
+  // 1.1 & 1.3
+  HunterType** hunter;
+  GhostType** ghost;
   char hunterName[MAX_STR];
   for (int i = 1; i < 5; i++) {
-    // 1.1
     printf("\nEnter the name of hunter %d: ", i);
     scanf("%s", hunterName);
     while (getchar() != '\n');
-
-    // addHunter(hunterName, );
+    initHunter(hunterName, 0, house.roomList->head, house.evidenceList, hunter); //? temp: replace argument 2 with specifications
+    house.hunters[i] = *hunter;
   }
+
+  //1.4 - Initialize and add ghost to a room
+
 
   return C_TRUE;
 }

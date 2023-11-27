@@ -40,7 +40,6 @@ struct Room {
   GhostType*        ghost;
   RoomListType*     roomList; // rooms connected to this one
   EvidenceListType* evidenceList;
-
 };
 
 struct House {
@@ -131,4 +130,5 @@ void addRoom(RoomListType* roomList, RoomType* room);
 
 
 //* Functions: hunter.c
-void addHunter(char* name, enum EvidenceType equipment, RoomType* room, EvidenceListType* evidenceList);
+void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
+                EvidenceListType* evidenceList, HunterType** hunter);
