@@ -14,3 +14,7 @@
 - A few initializing functions
 - Stuck: hunter.c - is equipment random or hard coded?
 
+26/11/2023
+- 1.1 - 1.4 completed
+- Makefile updated
+- Next: test current functions

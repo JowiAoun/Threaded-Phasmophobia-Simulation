@@ -1,20 +1,40 @@
-# Author: Param Desai - assignment 4
-# Modified to fit project criteria
+# Compiler
+CC := gcc
 
-CC=gcc
-CFLAGS=-Wall -Wextra -Werror -g
-OBJ=./out/main.o ./out/ghost.o ./out/hunter.o ./out/house.o ./out/logger.o ./out/utils.o
-EXE=final.exe
+# Compiler flags
+CFLAGS := -Wall -Wextra -g
 
-all: $(EXE)
+# Directories
+SRC_DIR := src
+OBJ_DIR := out
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Source files
+SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
 
-$(EXE): $(OBJ)
-	$(CC) $(OBJ) -o $(EXE)
+# Object files
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-.PHONY: clean valgrind
+# Executable name
+TARGET := final.exe
 
+# Main target
+all: $(TARGET)
+
+# Rule to link object files and create the executable
+$(TARGET): $(OBJ_FILES)
+	$(CC) $(CFLAGS) -o $@ $^
+
+# Rule to compile source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Rule to create the objects directory
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+# Clean up
 clean:
-	rm -f $(OBJ) $(EXE)
+	rm -rf $(OBJ_DIR) $(TARGET)
+
+# Phony target to avoid conflicts with files of the same name
+.PHONY: all clean
