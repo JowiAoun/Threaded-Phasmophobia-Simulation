@@ -36,6 +36,7 @@ void addRoom(RoomListType *roomList, RoomType *room) {
 		roomList->tail->next = newNode;
 		roomList->tail = newNode;
 	}
+  roomList->size++;
 }
 
 void populateRooms(HouseType* house) {
@@ -98,4 +99,5 @@ void initHouse(HouseType* house) {
 void initRoomList(RoomListType* roomList) {
   roomList->head = NULL;
 	roomList->tail = NULL;
+  roomList->size = 0;
 }

@@ -71,6 +71,7 @@ struct RoomNode {
 struct RoomList {
   RoomNodeType* head;
   RoomNodeType* tail;
+  int           size;
 };
 
 struct EvidenceNode {
@@ -81,6 +82,7 @@ struct EvidenceNode {
 struct EvidenceList {
   EvidenceNodeType* head;
   EvidenceNodeType* tail;
+  int               size;
 };
 
 
