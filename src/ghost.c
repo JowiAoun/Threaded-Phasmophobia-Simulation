@@ -9,18 +9,20 @@ void initGhost(GhostType** ghost) {
 }
 
 void addGhost(RoomListType* roomList, GhostType** ghost) {
+  // Check if there is less than 2 rooms
   if(roomList->size<2){
     printf("Error: Need atleast 2 rooms");
     exit(C_FALSE);
   }
 
+  // Iterate over room list
   int roomIndex = randInt(1,roomList->size-1);
-  RoomNodeType* currentRoom = roomList->head;
+  RoomNodeType* currentNode = roomList->head;
 
-  for(int i = 0; i<roomIndex; i++){
-    
+  for(int i = 0; i<roomIndex; i++) {
+    currentNode = currentNode->next;
   }
-  (*ghost)->currentRoom = roomList->head->next->data; //? temp: replace with random room which isn't Van
-  
-  roomList->head->next->data->ghost = *ghost;
+
+  currentNode->data->ghost = *ghost;
+  (*ghost)->currentRoom = currentNode->data;
 }
