@@ -109,6 +109,8 @@ void l_ghostExit(enum LoggerDetails reason);
 //* Functions: house.c
 void initHouse(HouseType* house);
 void initRoomList(RoomListType* roomList);
+// RoomType* getRandomRoom(HouseType* house);
+
 /*
   Function: Populate Rooms
   Purpose:  Dynamically allocates several rooms and populates the provided house.

@@ -99,3 +99,33 @@ void initRoomList(RoomListType* roomList) {
   roomList->head = NULL;
 	roomList->tail = NULL;
 }
+
+//* Random Room Assign Function
+// RoomType* getRandomRoom(HouseType* house){
+//   RoomNodeType* current = house->roomList->head;
+//   int roomCount = 0;
+
+//   while (current != NULL){
+//     if(strcmp(current->data->name, "Van") != 0){
+//       roomCount++;
+//     }
+//   }
+//   if(roomCount == 0){
+//     return NULL;
+//   }
+//   int roomIndex = randInt(0,roomCount);
+
+//   current = house->roomList->head;
+//   while (current != NULL && roomIndex >= 0){
+//     if(strcmp(current->data->name, "Van") !=0){
+//       if(roomIndex == 0){
+//         return current->data;
+//       }
+//       roomIndex--;
+//     }
+//     current = current->next;
+//   }
+
+//   return NULL;
+
+// }
