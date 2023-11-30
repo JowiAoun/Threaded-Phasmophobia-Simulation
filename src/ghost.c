@@ -26,3 +26,27 @@ void addGhost(RoomListType* roomList, GhostType** ghost) {
   currentNode->data->ghost = *ghost;
   (*ghost)->currentRoom = currentNode->data;
 }
+
+void chooseGhostAction(GhostType* ghost, int options) {
+  if (options = 3) {
+
+  }
+}
+
+void* ghost_thread(void* arg) {
+  GhostType* ghost = (GhostType*) arg;
+
+  while (ghost->boredom < BOREDOM_MAX) {
+    usleep(GHOST_WAIT);
+
+    if (ghost->currentRoom->hunters[0] != NULL) {
+      // 2.1 - Hunter in the room: leave evidence OR do nothing
+      ghost->boredom = 0;
+
+      chooseGhostAction(ghost, 2);
+    } else {
+      // 2.2 - Hunter not in the room: leave evidence OR move rooms OR do nothing
+      chooseGhostAction(ghost, 3);
+    }
+  }
+}

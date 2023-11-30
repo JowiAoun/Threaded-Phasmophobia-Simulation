@@ -18,7 +18,7 @@ int main() {
     scanf("%s", hunterName);
     while (getchar() != '\n');
     
-    initHunter(hunterName, 0, house.roomList->head->data, house.evidenceList, hunter); //? temp: replace argument 2 with specifications
+    initHunter(hunterName, i, house.roomList->head->data, house.evidenceList, hunter); //? temp: replace argument 2 with specifications
     house.hunters[i] = *hunter;
   }
 
@@ -26,6 +26,14 @@ int main() {
   GhostType** ghost = NULL;
   initGhost(ghost);
   addGhost(house.roomList, ghost);
+
+  // 1.5 - Create threads
+  pthread_t threads[NUM_HUNTERS+1]; // Indexes 0-4: hunters - Index 5: ghost.
+  for (int i = 0; i < NUM_HUNTERS; i++) {
+    pthread_create(&threads[i], NULL, hunter_thread, (void*) *hunter); // hunter threads
+  }
+  pthread_create(&threads[NUM_HUNTERS+1], NULL, ghost_thread, (void*) *ghost); // ghost thread
+
 
   return C_TRUE;
 }

@@ -33,6 +33,8 @@ enum EvidenceType { EMF, TEMPERATURE, FINGERPRINTS, SOUND, EV_COUNT, EV_UNKNOWN 
 enum GhostClass { POLTERGEIST, BANSHEE, BULLIES, PHANTOM, GHOST_COUNT, GH_UNKNOWN };
 enum LoggerDetails { LOG_FEAR, LOG_BORED, LOG_EVIDENCE, LOG_SUFFICIENT, LOG_INSUFFICIENT, LOG_UNKNOWN };
 
+enum C_ERROR { C_SUCCESS, C_MEMORY_ERROR, C_ARR_TOO_SMALL, C_DIVIDE_BY_ZERO };
+
 //* Structures
 struct Room {
   char              name[MAX_STR];
@@ -42,6 +44,7 @@ struct Room {
   EvidenceListType* evidenceList;
 };
 
+
 struct House {
   HunterType*       hunters[NUM_HUNTERS];
   RoomListType*     roomList; // all rooms in the house
@@ -49,7 +52,7 @@ struct House {
 };
 
 struct Ghost {
-  GhostClass ghostClass;
+  GhostClass  ghostClass;
   RoomType*   currentRoom;
   int         boredom;
 };
@@ -127,8 +130,11 @@ void addRoom(RoomListType** roomList, RoomType* room);
 //* Functions: hunter.c
 void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
                 EvidenceListType* evidenceList, HunterType** hunter);
+void* hunter_thread(void* arg);
 
 
 //* Functions: ghost.c
 void initGhost(GhostType** ghost);
 void addGhost(RoomListType* roomList, GhostType** ghost);
+void chooseGhostAction(GhostType* ghost, int options);
+void* ghost_thread(void* arg);
