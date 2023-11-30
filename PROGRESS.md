@@ -18,3 +18,8 @@
 - 1.1 - 1.4 completed
 - Makefile updated
 - Next: test current functions
+
+29/11/2023
+- Part 1, 2.1, 2.2 completed
+- Working on part 2
+- Next: after ghost thread completed, test out first checkpoint

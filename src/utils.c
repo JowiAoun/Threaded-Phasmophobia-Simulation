@@ -110,3 +110,12 @@ void initEvidenceList(EvidenceListType* evidenceList) {
   evidenceList->tail = NULL;
   evidenceList->size = 0;
 }
+
+void addEvidence(RoomListType* roomList, EvidenceType evType) {
+  EvidenceNodeType* newEvidenceNode = (EvidenceNodeType*)allocMemory(sizeof(EvidenceNodeType));
+
+  newEvidenceNode->data = evType;
+  newEvidenceNode->next = NULL;
+
+  roomList->tail->next = newEvidenceNode;
+}

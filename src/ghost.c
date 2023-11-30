@@ -28,7 +28,8 @@ void addGhost(RoomListType* roomList, GhostType** ghost) {
 }
 
 void chooseGhostAction(GhostType* ghost, int options) {
-  switch (options){
+  //TODO: optimize (and function call in ghost_thread)
+  switch (options) {
     case 0:
       break; // do nothing
     case 1:
@@ -39,15 +40,9 @@ void chooseGhostAction(GhostType* ghost, int options) {
       break;
   }
 }
-void moveRooms(GhostType *ghost){
-  // 2.3
-  //room's ghost pointer
-  //ghost's room pointer
-  // if (ghost == NULL || ghost->currentRoom == NULL){
-  //   return;
-  // }
 
-
+void moveRooms(GhostType* ghost) {
+  // 2.3 - Move to an adjacent room
   int roomIndex = randInt(0,ghost->currentRoom->roomList->size-1);
   RoomNodeType* currentRoom = ghost->currentRoom->roomList->head;
 
@@ -57,14 +52,31 @@ void moveRooms(GhostType *ghost){
   currentRoom->data->ghost = NULL;
   ghost->currentRoom - currentRoom->data;
   currentRoom->data->ghost = ghost;
-
 }
 
-void leaveEvidence(GhostType *ghost){
+void leaveEvidence(GhostType* ghost) {
+  // 2.4 - Leave evidence
+  int evType = randInt(0, 2);
 
+  switch (ghost->ghostClass) {
+    case POLTERGEIST:
+      EvidenceType* evTypeArray[3] = {EMF, TEMPERATURE, FINGERPRINTS};
+      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      break;
+    case BANSHEE:
+      EvidenceType* evTypeArray[3] = {EMF, TEMPERATURE, SOUND};
+      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      break;
+    case BULLIES:
+      EvidenceType* evTypeArray[3] = {EMF, FINGERPRINTS, SOUND};
+      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      break;
+    case PHANTOM:
+      EvidenceType* evTypeArray[3] = {TEMPERATURE, FINGERPRINTS, SOUND};
+      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      break;
+  }
 }
-
-
 
 void* ghost_thread(void* arg) {
   GhostType* ghost = (GhostType*) arg;
@@ -75,13 +87,17 @@ void* ghost_thread(void* arg) {
     if (ghost->currentRoom->hunters[0] != NULL) {
       // 2.1 - Hunter in the room: leave evidence OR do nothing
       ghost->boredom = 0;
-      int action = randInt(0,1);
+      int action = randInt(0, 1);
       chooseGhostAction(ghost, action);
     } else {
       // 2.2 - Hunter not in the room: leave evidence OR move rooms OR do nothing
       ghost->boredom++;
-      int action = randInt(0,2);
+      int action = randInt(0, 2);
       chooseGhostAction(ghost, action);
     }
   }
+
+  // Exit thread statements
+  l_ghostExit(LOG_BORED);
+  return NULL;
 }
