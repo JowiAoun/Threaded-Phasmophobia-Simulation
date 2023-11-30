@@ -28,10 +28,43 @@ void addGhost(RoomListType* roomList, GhostType** ghost) {
 }
 
 void chooseGhostAction(GhostType* ghost, int options) {
-  if (options = 3) {
-
+  switch (options){
+    case 0:
+      break; // do nothing
+    case 1:
+      leaveEvidence(ghost);
+      break;
+    case 2:
+      moveRooms(ghost);
+      break;
   }
 }
+void moveRooms(GhostType *ghost){
+  // 2.3
+  //room's ghost pointer
+  //ghost's room pointer
+  // if (ghost == NULL || ghost->currentRoom == NULL){
+  //   return;
+  // }
+
+
+  int roomIndex = randInt(0,ghost->currentRoom->roomList->size-1);
+  RoomNodeType* currentRoom = ghost->currentRoom->roomList->head;
+
+  for(int i = 0; i <roomIndex; i++){
+    currentRoom = currentRoom->next;
+  }
+  currentRoom->data->ghost = NULL;
+  ghost->currentRoom - currentRoom->data;
+  currentRoom->data->ghost = ghost;
+
+}
+
+void leaveEvidence(GhostType *ghost){
+
+}
+
+
 
 void* ghost_thread(void* arg) {
   GhostType* ghost = (GhostType*) arg;
@@ -42,11 +75,13 @@ void* ghost_thread(void* arg) {
     if (ghost->currentRoom->hunters[0] != NULL) {
       // 2.1 - Hunter in the room: leave evidence OR do nothing
       ghost->boredom = 0;
-
-      chooseGhostAction(ghost, 2);
+      int action = randInt(0,1);
+      chooseGhostAction(ghost, action);
     } else {
       // 2.2 - Hunter not in the room: leave evidence OR move rooms OR do nothing
-      chooseGhostAction(ghost, 3);
+      ghost->boredom++;
+      int action = randInt(0,2);
+      chooseGhostAction(ghost, action);
     }
   }
 }
