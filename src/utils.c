@@ -111,18 +111,18 @@ void initEvidenceList(EvidenceListType* evidenceList) {
   evidenceList->size = 0;
 }
 
-void addEvidence(RoomListType* roomList, EvidenceType evType) {
+void addEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   EvidenceNodeType* newEvidenceNode = (EvidenceNodeType*)allocMemory(sizeof(EvidenceNodeType));
 
   newEvidenceNode->data = evType;
   newEvidenceNode->next = NULL;
 
-  roomList->tail->next = newEvidenceNode;
-  roomList->size++;
+  evidenceList->tail->next = newEvidenceNode;
+  evidenceList->size++;
 }
 
-void removeEvidence(RoomListType* roomList, EvidenceType evType) {
-  EvidenceNodeType* currNode = roomList->head;
+void removeEvidence(EvidenceListType* evidenceList, int evType) {
+  EvidenceNodeType* currNode = evidenceList->head;
 
   while (currNode->next != NULL) {
     currNode = currNode->next;

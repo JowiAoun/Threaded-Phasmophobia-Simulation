@@ -50,30 +50,39 @@ void moveRooms(GhostType* ghost) {
     currentRoom = currentRoom->next;
   }
   currentRoom->data->ghost = NULL;
-  ghost->currentRoom - currentRoom->data;
+  ghost->currentRoom = currentRoom->data;
   currentRoom->data->ghost = ghost;
 }
 
 void leaveEvidence(GhostType* ghost) {
   // 2.4 - Leave evidence
   int evType = randInt(0, 2);
+  EvidenceType evTypeArray[3];
 
   switch (ghost->ghostClass) {
     case POLTERGEIST:
-      EvidenceType* evTypeArray[3] = {EMF, TEMPERATURE, FINGERPRINTS};
-      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      evTypeArray[0] = EMF;
+      evTypeArray[1] = TEMPERATURE;
+      evTypeArray[2] = FINGERPRINTS;
+      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
       break;
     case BANSHEE:
-      EvidenceType* evTypeArray[3] = {EMF, TEMPERATURE, SOUND};
-      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      evTypeArray[0] = EMF;
+      evTypeArray[1] = TEMPERATURE;
+      evTypeArray[2] = SOUND;
+      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
       break;
     case BULLIES:
-      EvidenceType* evTypeArray[3] = {EMF, FINGERPRINTS, SOUND};
-      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      evTypeArray[0] = EMF;
+      evTypeArray[1] = FINGERPRINTS;
+      evTypeArray[2] = SOUND;
+      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
       break;
     case PHANTOM:
-      EvidenceType* evTypeArray[3] = {TEMPERATURE, FINGERPRINTS, SOUND};
-      addEvidence(ghost->currentRoom, evTypeArray[evType]);
+      evTypeArray[0] = TEMPERATURE;
+      evTypeArray[1] = FINGERPRINTS;
+      evTypeArray[2] = SOUND;
+      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
       break;
   }
 }

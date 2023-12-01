@@ -97,8 +97,8 @@ void ghostToString(enum GhostClass, char*); // Convert a ghost type to a string,
 void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to a string, stored in output parameter
 void* allocMemory(size_t size);
 void initEvidenceList(EvidenceListType* evidenceList);
-void addEvidence(RoomListType* roomList, EvidenceType evType);
-
+void addEvidence(EvidenceListType* evidenceList, int evType);
+void removeEvidence(EvidenceListType* evidenceList, int evType);
 
 //* Functions: logger.c
 void l_hunterInit(char* name, enum EvidenceType equipment);
