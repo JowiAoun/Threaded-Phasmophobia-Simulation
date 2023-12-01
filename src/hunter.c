@@ -13,3 +13,12 @@ void initHunter(char* name, enum EvidenceType equipment,
   (*hunter)->room = 0;
 }
 
+void* hunter_thread(void* arg) {
+  HunterType* hunter = (HunterType*) arg;
+
+  while (1) {
+    usleep(HUNTER_WAIT);
+    
+    printf("Working... %s", hunter->name);
+  }
+}

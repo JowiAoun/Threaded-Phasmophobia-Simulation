@@ -114,14 +114,14 @@ void initEvidenceList(EvidenceListType* evidenceList) {
 void addEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   EvidenceNodeType* newEvidenceNode = (EvidenceNodeType*)allocMemory(sizeof(EvidenceNodeType));
 
-  newEvidenceNode->data = evType;
+  newEvidenceNode->data = &evType;
   newEvidenceNode->next = NULL;
 
   evidenceList->tail->next = newEvidenceNode;
   evidenceList->size++;
 }
 
-void removeEvidence(EvidenceListType* evidenceList, int evType) {
+void removeEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   EvidenceNodeType* currNode = evidenceList->head;
 
   while (currNode->next != NULL) {
