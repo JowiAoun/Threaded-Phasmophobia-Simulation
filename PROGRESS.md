@@ -20,6 +20,6 @@
 - Next: test current functions
 
 29/11/2023
-- Part 1, 2.1, 2.2 completed
+- Part 1, 2.1, 2.2, 2.3, 2.4 completed
 - Working on part 2
 - Next: after ghost thread completed, test out first checkpoint

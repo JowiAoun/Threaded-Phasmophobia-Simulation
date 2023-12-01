@@ -118,4 +118,16 @@ void addEvidence(RoomListType* roomList, EvidenceType evType) {
   newEvidenceNode->next = NULL;
 
   roomList->tail->next = newEvidenceNode;
+  roomList->size++;
+}
+
+void removeEvidence(RoomListType* roomList, EvidenceType evType) {
+  EvidenceNodeType* currNode = roomList->head;
+
+  while (currNode->next != NULL) {
+    currNode = currNode->next;
+    if (currNode->data == evType) {
+      break;
+    }
+  }
 }

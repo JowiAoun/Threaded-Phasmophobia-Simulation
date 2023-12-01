@@ -97,7 +97,7 @@ void* ghost_thread(void* arg) {
     }
   }
 
-  // Exit thread statements
+  // 2.5 - Exit thread statements
   l_ghostExit(LOG_BORED);
   return NULL;
 }
