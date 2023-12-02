@@ -138,6 +138,6 @@ void* hunter_thread(void* arg);
 void initGhost(GhostType** ghost);
 void addGhost(RoomListType* roomList, GhostType** ghost);
 void chooseGhostAction(GhostType* ghost, int action);
-void moveRooms(GhostType* ghost);
+void moveGhostRooms(GhostType* ghost);
 void leaveEvidence(GhostType* ghost);
 void* ghost_thread(void* arg);

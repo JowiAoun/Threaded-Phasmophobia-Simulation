@@ -38,12 +38,12 @@ void chooseGhostAction(GhostType* ghost, int action) {
       leaveEvidence(ghost);
       break;
     case 2:
-      moveRooms(ghost);
+      moveGhostRooms(ghost);
       break;
   }
 }
 
-void moveRooms(GhostType* ghost) {
+void moveGhostRooms(GhostType* ghost) {
   // 2.3 - Move to an adjacent room
   int roomIndex = randInt(0,ghost->currentRoom->roomList->size-1);
   RoomNodeType* currentRoom = ghost->currentRoom->roomList->head;
