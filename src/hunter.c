@@ -18,7 +18,5 @@ void* hunter_thread(void* arg) {
 
   while (1) {
     usleep(HUNTER_WAIT);
-    
-    printf("Working... %s", hunter->name);
   }
 }

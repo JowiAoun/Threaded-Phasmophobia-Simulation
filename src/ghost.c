@@ -10,7 +10,7 @@ void initGhost(GhostType** ghost) {
 
 void addGhost(RoomListType* roomList, GhostType** ghost) {
   // Check if there is less than 2 rooms
-  if(roomList->size<2){
+  if (roomList->size < 2) {
     printf("Error: Need atleast 2 rooms");
     exit(C_FALSE);
   }

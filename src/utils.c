@@ -118,7 +118,17 @@ void addEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   newEvidenceNode->data = evType;
   newEvidenceNode->next = NULL;
 
-  evidenceList->tail->next = newEvidenceNode;
+  // Define if the list has 0 or more elements
+  if (evidenceList->head == NULL) {
+    // Case: 0 nodes
+    evidenceList->head = newEvidenceNode;
+    evidenceList->tail = newEvidenceNode;
+
+  } else {
+    // Case: >=1 nodes
+    evidenceList->tail->next = newEvidenceNode;
+    evidenceList->tail = newEvidenceNode;
+  }
   evidenceList->size++;
 }
 
