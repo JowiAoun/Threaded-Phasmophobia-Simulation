@@ -20,6 +20,7 @@ int main() {
     
     initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
     house->hunters[i] = hunter;
+    l_hunterInit(hunter->name, hunter->equipment);
   }
 
   // 1.4 - Initialize and add ghost to a room

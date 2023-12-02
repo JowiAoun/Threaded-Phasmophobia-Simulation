@@ -19,4 +19,7 @@ void* hunter_thread(void* arg) {
   while (1) {
     usleep(HUNTER_WAIT);
   }
+
+  l_hunterExit(hunter->name, LOG_FEAR); //TODO: change second argument to proper log
+  return NULL;
 }
