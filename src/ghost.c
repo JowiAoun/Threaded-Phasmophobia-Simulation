@@ -25,11 +25,13 @@ void addGhost(RoomListType* roomList, GhostType** ghost) {
 
   currentNode->data->ghost = *ghost;
   (*ghost)->currentRoom = currentNode->data;
+
+  l_ghostInit((*ghost)->ghostClass, (*ghost)->currentRoom->name);
 }
 
-void chooseGhostAction(GhostType* ghost, int options) {
+void chooseGhostAction(GhostType* ghost, int action) {
   //TODO: optimize (and function call in ghost_thread)
-  switch (options) {
+  switch (action) {
     case 0:
       break; // do nothing
     case 1:
@@ -88,10 +90,13 @@ void leaveEvidence(GhostType* ghost) {
     default:
       exit(C_FALSE); //TODO: handle this case
   }
+
+  l_ghostEvidence(evType, ghost->currentRoom->name);
 }
 
 void* ghost_thread(void* arg) {
   GhostType* ghost = (GhostType*) arg;
+  int action;
 
   while (ghost->boredom < BOREDOM_MAX) {
     usleep(GHOST_WAIT);
@@ -99,12 +104,12 @@ void* ghost_thread(void* arg) {
     if (ghost->currentRoom->hunters[0] != NULL) {
       // 2.1 - Hunter in the room: leave evidence OR do nothing
       ghost->boredom = 0;
-      int action = randInt(0, 1);
+      action = randInt(0, 2);
       chooseGhostAction(ghost, action);
     } else {
       // 2.2 - Hunter not in the room: leave evidence OR move rooms OR do nothing
       ghost->boredom++;
-      int action = randInt(0, 2);
+      action = randInt(0, 3);
       chooseGhostAction(ghost, action);
     }
   }
