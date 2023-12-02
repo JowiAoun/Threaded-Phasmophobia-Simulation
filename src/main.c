@@ -11,16 +11,16 @@ int main() {
   populateRooms(house); // 1.2
 
   // 1.1 & 1.3 - Get user input and place hunters in van room
-  HunterType* hunter = NULL;
-  char hunterName[MAX_STR];
-  for (int i = 0; i < 4; i++) {
-    printf("\nEnter the name of hunter %d: ", i+1);
-    scanf("%s", hunterName);
-    while (getchar() != '\n');
-    
-    initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
-    house->hunters[i] = hunter;
-  }
+  //HunterType* hunter = NULL;
+  //char hunterName[MAX_STR];
+  //for (int i = 0; i < 4; i++) {
+  //  printf("\nEnter the name of hunter %d: ", i+1);
+  //  scanf("%s", hunterName);
+  //  while (getchar() != '\n');
+  //  
+  //  initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
+  //  house->hunters[i] = hunter;
+  //}
 
   // 1.4 - Initialize and add ghost to a room
   GhostType* ghost = NULL;
@@ -34,6 +34,9 @@ int main() {
   //}
   pthread_create(&threads[NUM_HUNTERS], NULL, ghost_thread, (void *) ghost); // ghost thread
 
+  for (int i = 0; i < NUM_HUNTERS+1; i++) {
+    pthread_join(threads[i], NULL);
+  }
 
   return C_TRUE;
 }

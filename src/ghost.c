@@ -85,6 +85,8 @@ void leaveEvidence(GhostType* ghost) {
       evTypeArray[2] = SOUND;
       addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
       break;
+    default:
+      exit(C_FALSE); //TODO: handle this case
   }
 }
 
