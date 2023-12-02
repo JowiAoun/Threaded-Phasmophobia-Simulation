@@ -14,7 +14,14 @@ void initHunter(char* name, enum EvidenceType equipment,
 }
 
 void collectEvidence(HunterType* hunter) {
-  
+  EvidenceNodeType *currentEvidence = hunter->room->evidenceList->head;
+
+  for (int i = 0; i < hunter->evidenceList->size; i++) {
+    if (currentEvidence->data == hunter->equipment){
+      
+    }
+  }
+
 }
 
 void moveHunterRooms(HunterType* hunter) {
