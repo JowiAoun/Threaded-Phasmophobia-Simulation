@@ -52,6 +52,7 @@ void moveRooms(GhostType* ghost) {
   currentRoom->data->ghost = NULL;
   ghost->currentRoom = currentRoom->data;
   currentRoom->data->ghost = ghost;
+  l_ghostMove(currentRoom->data->name);
 }
 
 void leaveEvidence(GhostType* ghost) {
