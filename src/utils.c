@@ -105,16 +105,17 @@ void* allocMemory(size_t size) {
   return ptr;
 }
 
-void initEvidenceList(EvidenceListType* evidenceList) {
-  evidenceList->head = NULL;
-  evidenceList->tail = NULL;
-  evidenceList->size = 0;
+void initEvidenceList(EvidenceListType** evidenceList) {
+  *evidenceList = (EvidenceListType*)allocMemory(sizeof(EvidenceListType));
+  (*evidenceList)->head = NULL;
+  (*evidenceList)->tail = NULL;
+  (*evidenceList)->size = 0;
 }
 
 void addEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   EvidenceNodeType* newEvidenceNode = (EvidenceNodeType*)allocMemory(sizeof(EvidenceNodeType));
 
-  newEvidenceNode->data = &evType;
+  newEvidenceNode->data = evType;
   newEvidenceNode->next = NULL;
 
   evidenceList->tail->next = newEvidenceNode;

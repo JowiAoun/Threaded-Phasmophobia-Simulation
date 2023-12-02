@@ -6,8 +6,8 @@ RoomType* createRoom(char name[]){
   
   strncpy(room->name, name, MAX_STR);
   room->ghost = NULL;
-  initRoomList(room->roomList);
-  initEvidenceList(room->evidenceList);
+  initRoomList(&room->roomList);
+  initEvidenceList(&room->evidenceList);
 
   return room;
 }
@@ -89,15 +89,16 @@ void populateRooms(HouseType* house) {
   addRoom(&house->roomList, utility_room);
 }
 
-void initHouse(HouseType* house) {
-  house = (HouseType*)allocMemory(sizeof(HouseType));
+void initHouse(HouseType** house) {
+  *house = (HouseType*)allocMemory(sizeof(HouseType));
   
-  initRoomList(house->roomList);
-  initEvidenceList(house->evidenceList);
+  initRoomList(&(*house)->roomList);
+  initEvidenceList(&(*house)->evidenceList);
 }
 
-void initRoomList(RoomListType* roomList) {
-  roomList->head = NULL;
-	roomList->tail = NULL;
-  roomList->size = 0;
+void initRoomList(RoomListType** roomList) {
+  *roomList = (RoomListType*)allocMemory(sizeof(RoomListType));
+  (*roomList)->head = NULL;
+  (*roomList)->tail = NULL;
+  (*roomList)->size = 0;
 }

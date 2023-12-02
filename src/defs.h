@@ -96,7 +96,7 @@ enum GhostClass randomGhost();  // Return a randomly selected a ghost type
 void ghostToString(enum GhostClass, char*); // Convert a ghost type to a string, stored in output paremeter
 void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to a string, stored in output parameter
 void* allocMemory(size_t size);
-void initEvidenceList(EvidenceListType* evidenceList);
+void initEvidenceList(EvidenceListType** evidenceList);
 void addEvidence(EvidenceListType* evidenceList, EvidenceType evType);
 void removeEvidence(EvidenceListType* evidenceList, EvidenceType evType);
 
@@ -113,8 +113,8 @@ void l_ghostExit(enum LoggerDetails reason);
 
 
 //* Functions: house.c
-void initHouse(HouseType* house);
-void initRoomList(RoomListType* roomList);
+void initHouse(HouseType** house);
+void initRoomList(RoomListType** roomList);
 void populateRooms(HouseType* house);
 RoomType* createRoom(char name[]);
 void connectRooms(RoomType* room1, RoomType* room2);
