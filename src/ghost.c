@@ -45,7 +45,7 @@ void chooseGhostAction(GhostType* ghost, int action) {
 
 void moveGhostRooms(GhostType* ghost) {
   // 2.3 - Move to an adjacent room
-  int roomIndex = randInt(0,ghost->currentRoom->roomList->size-1);
+  int roomIndex = randInt(0,ghost->currentRoom->roomList->size);
   RoomNodeType* currentRoom = ghost->currentRoom->roomList->head;
 
   for(int i = 0; i <roomIndex; i++){

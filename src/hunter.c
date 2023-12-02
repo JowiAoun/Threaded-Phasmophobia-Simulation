@@ -12,23 +12,31 @@ void initHunter(char* name, enum EvidenceType equipment,
   (*hunter)->fear = 0;
   (*hunter)->room = 0;
 }
-void moveHunterRooms(HunterType* hunter){
-  int roomIndex = randInt(0,hunter->room->roomList->size-1);
+
+void collectEvidence(HunterType* hunter) {
+  
+}
+
+void moveHunterRooms(HunterType* hunter) {
+  int roomIndex = randInt(0,hunter->room->roomList->size);
   RoomNodeType* currentRoom = hunter->room->roomList->head;
-  for(int i = 0; i <roomIndex; i++){
+
+  // Look for the room to add the hunter in
+  for(int i = 0; i <roomIndex; i++) {
     currentRoom = currentRoom->next;
   }
-  for(int i = 0; i < NUM_HUNTERS; i++){
-  currentRoom->data->hunter[i] = NULL;
-  currentRoom->data->hunters
 
+  // Assert: room to add hunter is found
+  for(int i = 0; i < NUM_HUNTERS; i++) {
+    // Search the hunter to move
+    if (strcmp(currentRoom->data->hunters[i]->name, hunter->name) == 0) {
+      // Hunter found
+      hunter->room->hunters[i] = NULL; // Remove the hunter from the room
+      hunter->room = currentRoom->data; // Set the hunter's new room
+      currentRoom->data->hunters[i] = hunter; // Set the room's hunter list
+      l_ghostMove(currentRoom->data->name);
+    }
   }
-  currentRoom->data->hunter = NULL;
-  hunter->room = currentRoom->data;
-  currentRoom->data->hunter = hunter;
-  l_ghostMove(currentRoom->data->name);
-
-
 }
 
 void* hunter_thread(void* arg) {

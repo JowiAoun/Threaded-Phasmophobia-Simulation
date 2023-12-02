@@ -17,7 +17,7 @@ int main() {
     printf("\nEnter the name of hunter %d: ", i+1);
     scanf("%s", hunterName);
     while (getchar() != '\n');
-    
+    //TODO: Handle the case where hunters have the same name
     initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
     house->hunters[i] = hunter;
     l_hunterInit(hunter->name, hunter->equipment);
