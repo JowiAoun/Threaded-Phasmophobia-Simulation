@@ -20,6 +20,7 @@ int main() {
     //TODO: Handle the case where hunters have the same name
     initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
     house->hunters[i] = hunter;
+    printf("house: %s", house->hunters[i]->name);
     l_hunterInit(hunter->name, hunter->equipment);
   }
   printf("\n\n");
