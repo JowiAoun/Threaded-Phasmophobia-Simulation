@@ -20,7 +20,7 @@ void collectEvidence(HunterType* hunter) {
 }
 
 void moveHunterRooms(HunterType* hunter) {
-  int roomIndex = randInt(0,hunter->room->roomList->size);
+  int roomIndex = randInt(0,hunter->room->roomList->size + 1);
   RoomNodeType* currentRoom = hunter->room->roomList->head;
 
   // Look for the room to add the hunter in
@@ -31,8 +31,10 @@ void moveHunterRooms(HunterType* hunter) {
   // Assert: room to add hunter is found
   for(int i = 0; i < NUM_HUNTERS; i++) {
     // Search the hunter to move
-    if (currentRoom->data->hunters[i] != NULL){
-      if (strcmp(currentRoom->data->hunters[i]->name, hunter->name) == 0) {
+    printf("Hunter %d: %s\n", i, hunter->room->hunters[i]->name); //! temp
+    if (hunter->room->hunters[i]->name != NULL) {
+      //printf("Test...\n"); //! temp
+      if (strcmp(hunter->room->hunters[i]->name, hunter->name) == 0) {
         // Hunter found
         hunter->room->hunters[i] = NULL; // Remove the hunter from the room
         hunter->room = currentRoom->data; // Set the hunter's new room
@@ -40,7 +42,6 @@ void moveHunterRooms(HunterType* hunter) {
         l_hunterMove(hunter->name, currentRoom->data->name);
         break;
       }
-      printf("TEST"); //! temp
     }
   }
 }

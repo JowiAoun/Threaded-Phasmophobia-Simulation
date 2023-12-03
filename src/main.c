@@ -13,7 +13,7 @@ int main() {
   // 1.1 & 1.3 - Get user input and place hunters in van room
   HunterType* hunter = NULL;
   char hunterName[MAX_STR];
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 1; i++) { //!NUM_HUNTERS
     printf("\nEnter the name of hunter %d: ", i+1);
     scanf("%s", hunterName);
     while (getchar() != '\n');
@@ -22,6 +22,7 @@ int main() {
     house->hunters[i] = hunter;
     l_hunterInit(hunter->name, hunter->equipment);
   }
+  printf("\n\n");
 
   // 1.4 - Initialize and add ghost to a room
   GhostType* ghost = NULL;
@@ -30,13 +31,13 @@ int main() {
 
   // 1.5 - Create threads
   pthread_t threads[NUM_HUNTERS+1]; // Indexes 0-4: hunters - Index 5: ghost.
-  for (int i = 0; i < NUM_HUNTERS; i++) {
+  for (int i = 0; i < 1; i++) { //! NUM_HUNTERS
     pthread_create(&threads[i], NULL, hunter_thread, (void*) hunter); // hunter threads
   }
-  pthread_create(&threads[NUM_HUNTERS], NULL, ghost_thread, (void *) ghost); // ghost thread
+  //pthread_create(&threads[NUM_HUNTERS], NULL, ghost_thread, (void *) ghost); // ghost thread
 
   // Join threads
-  for (int i = 0; i < NUM_HUNTERS+1; i++) {
+  for (int i = 0; i < 1; i++) { //! NUM_HUNTERS
     pthread_join(threads[i], NULL);
   }
 
