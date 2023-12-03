@@ -10,10 +10,12 @@ void initHunter(char* name, enum EvidenceType equipment,
   (*hunter)->room = room;
   (*hunter)->evidenceList = evidenceList;
   (*hunter)->fear = 0;
-  (*hunter)->room = 0;
+  (*hunter)->boredom = 0;
 }
 
 void collectEvidence(HunterType* hunter) {
+  addEvidence(hunter->evidenceList, hunter->equipment);
+  removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
   //TODO: Call addEvidence and removeEvidence
 }
 
@@ -51,8 +53,6 @@ void* hunter_thread(void* arg) {
     else{
       hunter->boredom += 1;
     }
-    
-
 
     usleep(HUNTER_WAIT);
   }
