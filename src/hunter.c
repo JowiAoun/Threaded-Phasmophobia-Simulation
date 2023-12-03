@@ -31,9 +31,9 @@ void moveHunterRooms(HunterType* hunter) {
   // Assert: room to add hunter is found
   for(int i = 0; i < NUM_HUNTERS; i++) {
     // Search the hunter to move
-    printf("Hunter %d: %s\n", i, hunter->room->hunters[i]->name); //! temp
-    if (hunter->room->hunters[i]->name != NULL) {
-      //printf("Test...\n"); //! temp
+    printf("Moving Hunter %d: %s from room %s\n", i, hunter->name, hunter->room->name); //! temp
+    if (hunter->name != NULL) {
+      printf("Test...\n"); //! temp
       if (strcmp(hunter->room->hunters[i]->name, hunter->name) == 0) {
         // Hunter found
         hunter->room->hunters[i] = NULL; // Remove the hunter from the room
