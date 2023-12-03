@@ -132,7 +132,10 @@ void addRoom(RoomListType** roomList, RoomType* room);
 void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
                 EvidenceListType* evidenceList, HunterType** hunter);
 void* hunter_thread(void* arg);
+void collectEvidence(HunterType* hunter);
 void moveHunterRooms(HunterType* hunter);
+// void reviewEvidence(HunterType* hunter);
+
 
 
 //* Functions: ghost.c

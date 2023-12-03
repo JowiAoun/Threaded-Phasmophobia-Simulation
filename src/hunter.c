@@ -16,7 +16,6 @@ void initHunter(char* name, enum EvidenceType equipment,
 void collectEvidence(HunterType* hunter) {
   addEvidence(hunter->evidenceList, hunter->equipment);
   removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
-  //TODO: Call addEvidence and removeEvidence
 }
 
 void moveHunterRooms(HunterType* hunter) {
@@ -31,20 +30,32 @@ void moveHunterRooms(HunterType* hunter) {
   // Assert: room to add hunter is found
   for(int i = 0; i < NUM_HUNTERS; i++) {
     // Search the hunter to move
-    if (strcmp(currentRoom->data->hunters[i]->name, hunter->name) == 0) {
-      // Hunter found
-      hunter->room->hunters[i] = NULL; // Remove the hunter from the room
-      hunter->room = currentRoom->data; // Set the hunter's new room
-      currentRoom->data->hunters[i] = hunter; // Set the room's hunter list
-      l_ghostMove(currentRoom->data->name);
+    if (currentRoom->data->hunters[i] != NULL){
+      if (strcmp(currentRoom->data->hunters[i]->name, hunter->name) == 0) {
+        // Hunter found
+        hunter->room->hunters[i] = NULL; // Remove the hunter from the room
+        hunter->room = currentRoom->data; // Set the hunter's new room
+        currentRoom->data->hunters[i] = hunter; // Set the room's hunter list
+        l_hunterMove(hunter->name, currentRoom->data->name);
+        break;
+      }
     }
   }
+
 }
 
+// void reviewEvidence(HunterType* hunter) {
+
+// }
+
 void* hunter_thread(void* arg) {
+  printf("hunter thread...");
+
   HunterType* hunter = (HunterType*) arg;
 
   while (1) {
+    usleep(HUNTER_WAIT);
+
     // 3.1
     if(hunter->room->ghost != NULL){
       hunter->fear += 1;
@@ -53,9 +64,20 @@ void* hunter_thread(void* arg) {
     else{
       hunter->boredom += 1;
     }
-
-    usleep(HUNTER_WAIT);
+    // 3.2
+    int action = randInt(0,2);
+    switch(action){
+      case 0:
+        collectEvidence(hunter);
+        break;
+      case 1:
+        moveHunterRooms(hunter);
+        break;
+      case 2:
+        break;
+    }
   }
+
 
   l_hunterExit(hunter->name, LOG_FEAR); //TODO: change second argument to proper log
   return NULL;
