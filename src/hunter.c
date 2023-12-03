@@ -24,7 +24,7 @@ void moveHunterRooms(HunterType* hunter) {
   RoomNodeType* currentRoom = hunter->room->roomList->head;
 
   // Look for the room to add the hunter in
-  for(int i = 0; i <roomIndex; i++) {
+  for(int i = 0; i < roomIndex; i++) {
     currentRoom = currentRoom->next;
   }
 
@@ -40,6 +40,7 @@ void moveHunterRooms(HunterType* hunter) {
         l_hunterMove(hunter->name, currentRoom->data->name);
         break;
       }
+      printf("TEST"); //! temp
     }
   }
 }
@@ -75,9 +76,14 @@ void* hunter_thread(void* arg) {
       case 2:
         break;
     }
+
+    // TODO: check if boredom_max should be > or >=
+    if (hunter->boredom > BOREDOM_MAX) {
+      l_hunterExit(hunter->name, LOG_BORED);
+      return NULL;
+    } else if (hunter->fear > FEAR_MAX) {
+      l_hunterExit(hunter->name, LOG_FEAR);
+      return NULL;
+    }
   }
-
-
-  l_hunterExit(hunter->name, LOG_FEAR); //TODO: change second argument to proper log
-  return NULL;
 }

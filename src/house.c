@@ -3,7 +3,10 @@
 
 RoomType* createRoom(char name[]){
   RoomType* room = (RoomType*)allocMemory(sizeof(RoomType));
-  
+
+  for (int i = 0; i < NUM_HUNTERS; i++) {
+    room->hunters[i] = NULL;
+  }
   strncpy(room->name, name, MAX_STR);
   room->ghost = NULL;
   initRoomList(&room->roomList);
