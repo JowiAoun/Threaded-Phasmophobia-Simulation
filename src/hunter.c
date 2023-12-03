@@ -16,6 +16,7 @@ void initHunter(char* name, enum EvidenceType equipment,
 void collectEvidence(HunterType* hunter) {
   addEvidence(hunter->evidenceList, hunter->equipment);
   removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
+  l_hunterCollect(hunter->name, hunter->equipment, hunter->room->name);
 }
 
 void moveHunterRooms(HunterType* hunter) {
@@ -41,7 +42,6 @@ void moveHunterRooms(HunterType* hunter) {
       }
     }
   }
-
 }
 
 // void reviewEvidence(HunterType* hunter) {
@@ -49,8 +49,6 @@ void moveHunterRooms(HunterType* hunter) {
 // }
 
 void* hunter_thread(void* arg) {
-  printf("hunter thread...");
-
   HunterType* hunter = (HunterType*) arg;
 
   while (1) {
@@ -66,9 +64,10 @@ void* hunter_thread(void* arg) {
     }
     // 3.2
     int action = randInt(0,2);
+    
     switch(action){
       case 0:
-        collectEvidence(hunter);
+        //collectEvidence(hunter);
         break;
       case 1:
         moveHunterRooms(hunter);
