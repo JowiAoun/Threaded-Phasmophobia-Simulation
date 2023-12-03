@@ -132,13 +132,47 @@ void addEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   evidenceList->size++;
 }
 
-void removeEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
-  EvidenceNodeType* currNode = evidenceList->head;
+void removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterEvidenceList, EvidenceType evType) {
+  if (roomEvidenceList->size < 1) {
+    // Case: no evidence in the list
+    return;
+  }
+  
+  // Set the current evidence as the first one in the list
+  EvidenceNodeType* currRoomEvidence = roomEvidenceList->head;
+  EvidenceNodeType* prevRoomEvidence = NULL;
 
-  while (currNode->next != NULL) {
-    currNode = currNode->next;
-    if (currNode->data == evType) {
-      break;
+  // Iterate through the evidence list
+  for (int i = 0; i < roomEvidenceList->size; i++) {
+    if (currRoomEvidence->data == evType) {
+      // Case: evidence found
+      addEvidence(hunterEvidenceList, currRoomEvidence->data);
+      
+      if (i == 0) {
+        // Case 0: evidence is at the head of the list
+        roomEvidenceList->head = roomEvidenceList->head->next;
+        if (roomEvidenceList->size < 2) {
+          // Case: it is the only one in the room
+          roomEvidenceList->tail = NULL;
+        }
+      } else if (i < roomEvidenceList->size-1) {
+        // Case 1: evidence is in the middle of the list
+        prevRoomEvidence->next = currRoomEvidence->next;
+      } else {
+        // Case 2: evidence is the last element of the list
+        roomEvidenceList->tail = prevRoomEvidence;
+        prevRoomEvidence->next = NULL;
+      }
+      
+      roomEvidenceList->size--;
+      free(currRoomEvidence);
+      return;
     }
+
+    prevRoomEvidence = currRoomEvidence;
+    currRoomEvidence = currRoomEvidence->next;
+
+    prevRoomEvidence = currRoomEvidence;
+    currRoomEvidence = currRoomEvidence->next;
   }
 }
