@@ -103,6 +103,7 @@ void* ghost_thread(void* arg) {
     usleep(GHOST_WAIT);
 
     if (ghost->currentRoom->hunters[0] != NULL) {
+      
       // 2.1 - Hunter in the room: leave evidence OR do nothing
       ghost->boredom = 0;
       action = randInt(0, 2);

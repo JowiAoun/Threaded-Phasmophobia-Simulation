@@ -44,7 +44,6 @@ struct Room {
   EvidenceListType* evidenceList;
 };
 
-
 struct House {
   HunterType*       hunters[NUM_HUNTERS];
   RoomListType*     roomList; // all rooms in the house
@@ -99,6 +98,8 @@ void* allocMemory(size_t size);
 void initEvidenceList(EvidenceListType** evidenceList);
 void addEvidence(EvidenceListType* evidenceList, EvidenceType evType);
 int removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterEvidenceList, EvidenceType evType);
+void removeHunter(HunterType* hunter);
+
 
 //* Functions: logger.c
 void l_hunterInit(char* name, enum EvidenceType equipment);
@@ -134,7 +135,7 @@ void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
 void* hunter_thread(void* arg);
 void collectEvidence(HunterType* hunter);
 void moveHunterRooms(HunterType* hunter);
-// void reviewEvidence(HunterType* hunter);
+void reviewEvidence(HunterType* hunter);
 
 
 

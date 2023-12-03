@@ -175,3 +175,15 @@ int removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterE
 
   return 0;
 }
+
+void removeHunter(HunterType* hunter) {
+  for (int i = 0; i < NUM_HUNTERS; i++) {
+    if (hunter->room->hunters[i]) {
+      if (strcmp(hunter->room->hunters[i]->name, hunter->name) == 0) {
+        hunter->room->hunters[i] = NULL;
+        free(hunter);
+        break;
+      }
+    }
+  }
+}
