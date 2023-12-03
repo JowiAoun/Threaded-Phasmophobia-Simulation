@@ -131,13 +131,13 @@ void* hunter_thread(void* arg) {
     }
 
     if (hunter->boredom >= BOREDOM_MAX) {
-      removeHunter(hunter);
       l_hunterExit(hunter->name, LOG_BORED);
+      removeHunter(hunter);
       return NULL;
 
     } else if (hunter->fear >= FEAR_MAX) {
-      removeHunter(hunter);
       l_hunterExit(hunter->name, LOG_FEAR);
+      removeHunter(hunter);
       return NULL;
     }
   }
