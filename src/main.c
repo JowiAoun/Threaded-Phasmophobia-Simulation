@@ -20,7 +20,6 @@ int main() {
     //TODO: Handle the case where hunters have the same name
     initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
     house->hunters[i] = hunter;
-    printf("house: %s", house->hunters[i]->name);
     l_hunterInit(hunter->name, hunter->equipment);
   }
   printf("\n\n");
@@ -32,16 +31,16 @@ int main() {
 
   // 1.5 - Create threads
   pthread_t threads[NUM_HUNTERS+1]; // Indexes 0-4: hunters - Index 5: ghost.
-  for (int i = 0; i < NUM_HUNTERS; i++) { //! NUM_HUNTERS
-    pthread_create(&threads[i], NULL, hunter_thread, (void*) hunter); // hunter threads
-  }
-  // for (int i = 0; i < NUM_HUNTERS; i++) {
-    // pthread_create(&threads[i], NULL, hunter_thread, (void*) house->hunters[i]);
+  // for (int i = 0; i < NUM_HUNTERS; i++) { //! NUM_HUNTERS
+  //   pthread_create(&threads[i], NULL, hunter_thread, (void*) hunter); // hunter threads
   // }
+  for (int i = 0; i < NUM_HUNTERS; i++) {
+    pthread_create(&threads[i], NULL, hunter_thread, (void*) house->hunters[i]);
+  }
   pthread_create(&threads[NUM_HUNTERS], NULL, ghost_thread, (void *) ghost); // ghost thread
 
   // Join threads
-  for (int i = 0; i < NUM_HUNTERS; i++) { //! NUM_HUNTERS+1
+  for (int i = 0; i < NUM_HUNTERS+1; i++) { //! NUM_HUNTERS+1
     pthread_join(threads[i], NULL);
   }
 

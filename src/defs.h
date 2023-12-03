@@ -98,7 +98,7 @@ void evidenceToString(enum EvidenceType, char*); // Convert an evidence type to 
 void* allocMemory(size_t size);
 void initEvidenceList(EvidenceListType** evidenceList);
 void addEvidence(EvidenceListType* evidenceList, EvidenceType evType);
-void removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterEvidenceList, EvidenceType evType);
+int removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterEvidenceList, EvidenceType evType);
 
 //* Functions: logger.c
 void l_hunterInit(char* name, enum EvidenceType equipment);

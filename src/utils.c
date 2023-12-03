@@ -132,10 +132,10 @@ void addEvidence(EvidenceListType* evidenceList, EvidenceType evType) {
   evidenceList->size++;
 }
 
-void removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterEvidenceList, EvidenceType evType) {
+int removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunterEvidenceList, EvidenceType evType) {
   if (roomEvidenceList->size < 1) {
     // Case: no evidence in the list
-    return;
+    return 0;
   }
   
   // Set the current evidence as the first one in the list
@@ -166,13 +166,12 @@ void removeEvidence(EvidenceListType* roomEvidenceList, EvidenceListType* hunter
       
       roomEvidenceList->size--;
       free(currRoomEvidence);
-      return;
+      return 1;
     }
 
     prevRoomEvidence = currRoomEvidence;
     currRoomEvidence = currRoomEvidence->next;
-
-    prevRoomEvidence = currRoomEvidence;
-    currRoomEvidence = currRoomEvidence->next;
   }
+
+  return 0;
 }

@@ -14,9 +14,16 @@ void initHunter(char* name, enum EvidenceType equipment,
 }
 
 void collectEvidence(HunterType* hunter) {
-  addEvidence(hunter->evidenceList, hunter->equipment);
-  removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
-  l_hunterCollect(hunter->name, hunter->equipment, hunter->room->name);
+  if (hunter->room->evidenceList->head != NULL) {
+    int ret = removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
+    if (ret == 1) {
+      //printf("--- Evidence taken\n"); //!temp
+      addEvidence(hunter->evidenceList, hunter->equipment);
+      l_hunterCollect(hunter->name, hunter->equipment, hunter->room->name);
+    }
+  } else {
+    printf("No evidence in room\n"); //! temp
+  }
 }
 
 void moveHunterRooms(HunterType* hunter) {
@@ -51,9 +58,9 @@ void moveHunterRooms(HunterType* hunter) {
 }
 
 
-// void reviewEvidence(HunterType* hunter) {
-
-// }
+void reviewEvidence(HunterType* hunter) {
+  
+}
 
 void* hunter_thread(void* arg) {
   HunterType* hunter = (HunterType*) arg;
@@ -74,7 +81,7 @@ void* hunter_thread(void* arg) {
     
     switch(action){
       case 0:
-        //collectEvidence(hunter);
+        collectEvidence(hunter);
         break;
       case 1:
         moveHunterRooms(hunter);

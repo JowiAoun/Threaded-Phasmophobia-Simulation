@@ -51,7 +51,7 @@ void moveGhostRooms(GhostType* ghost) {
   for(int i = 0; i <roomIndex; i++){
     currentRoom = currentRoom->next;
   }
-  
+
   currentRoom->data->ghost = NULL;
   ghost->currentRoom = currentRoom->data;
   currentRoom->data->ghost = ghost;
