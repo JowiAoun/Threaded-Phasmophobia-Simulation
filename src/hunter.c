@@ -15,11 +15,15 @@ void initHunter(char* name, enum EvidenceType equipment,
 }
 
 void collectEvidence(HunterType* hunter) {
+  // TODO: turn return value to void, put l_hunterCollect in removeEvidence
   if (hunter->room->evidenceList->head != NULL) {
     int ret = removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
     if (ret == 1) {
-      addEvidence(hunter->evidenceList, hunter->equipment);
       l_hunterCollect(hunter->name, hunter->equipment, hunter->room->name);
+      printf("----- COLLECTED EVIDENCE -----");
+      for (int i = 0; i < 4; i++) {
+        printf("---- ");
+      }
     }
   }
 }
@@ -55,7 +59,6 @@ void moveHunterRooms(HunterType* hunter) {
   }
 }
 
-
 void reviewEvidence(HunterType* hunter) {
   int count = 0;
 
@@ -90,14 +93,14 @@ void reviewEvidence(HunterType* hunter) {
     count = 0;
 
     for (int i = 0; i < 4; i++) {
-      printf("------ EVIDENCE COUNT: %d\n", evidenceCounts[i]); //! test
+      //printf("------ EVIDENCE COUNT: %d\n", evidenceCounts[i]); //! test
       if (evidenceCounts[i] > 1) {
         count++;
       }
     }
   }
 
-  printf("-------- EVIDENCE COUNT IN REVIEW: %d\n", count); //!test
+  //printf("-------- EVIDENCE COUNT IN REVIEW: %d\n", count); //!test
   if (count >= 3) {
     pthread_mutex_lock(&(hunter->house->mutex));
     hunter->house->huntersWon = 1;
