@@ -4,9 +4,6 @@ Notes:
 
 
 
-
-
-
 Development:
 
 
@@ -14,14 +11,7 @@ Development:
 
 
 
-
-
-
-
 Before submission:
-- All heap is freed on exit
-- Complete the README
-- Go over specifications once more and verify if data AND behaviour closely matches
 - Make sure all functions prototypes are defined as well as functions for function prototypes
 - Make sure everything is logged (after each action) and looks similar to brightspace
   lecture "COMP 2401 B Lecture 17"

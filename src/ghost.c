@@ -61,40 +61,45 @@ void moveGhostRooms(GhostType* ghost) {
 }
 
 void leaveEvidence(GhostType* ghost) {
-  // 2.4 - Leave evidence
-  int evType = randInt(0, 3);
-  EvidenceType evTypeArray[3];
+    // 2.4 - Leave evidence
+    EvidenceType evTypeArray[3] = {EV_UNKNOWN, EV_UNKNOWN, EV_UNKNOWN}; // Initialize with unknown evidence types
 
-  switch (ghost->ghostClass) {
-    case POLTERGEIST:
-      evTypeArray[0] = EMF;
-      evTypeArray[1] = TEMPERATURE;
-      evTypeArray[2] = FINGERPRINTS;
-      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
-      break;
-    case BANSHEE:
-      evTypeArray[0] = EMF;
-      evTypeArray[1] = TEMPERATURE;
-      evTypeArray[2] = SOUND;
-      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
-      break;
-    case BULLIES:
-      evTypeArray[0] = EMF;
-      evTypeArray[1] = FINGERPRINTS;
-      evTypeArray[2] = SOUND;
-      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
-      break;
-    case PHANTOM:
-      evTypeArray[0] = TEMPERATURE;
-      evTypeArray[1] = FINGERPRINTS;
-      evTypeArray[2] = SOUND;
-      addEvidence(ghost->currentRoom->evidenceList, evTypeArray[evType]);
-      break;
-    default:
-      exit(C_FALSE); //TODO: handle this case
-  }
+    // Assign evidence types based on ghost class
+    switch (ghost->ghostClass) {
+        case POLTERGEIST:
+            evTypeArray[0] = EMF;
+            evTypeArray[1] = TEMPERATURE;
+            evTypeArray[2] = FINGERPRINTS;
+            break;
+        case BANSHEE:
+            evTypeArray[0] = EMF;
+            evTypeArray[1] = TEMPERATURE;
+            evTypeArray[2] = SOUND;
+            break;
+        case BULLIES:
+            evTypeArray[0] = EMF;
+            evTypeArray[1] = FINGERPRINTS;
+            evTypeArray[2] = SOUND;
+            break;
+        case PHANTOM:
+            evTypeArray[0] = TEMPERATURE;
+            evTypeArray[1] = FINGERPRINTS;
+            evTypeArray[2] = SOUND;
+            break;
+        default:
+            printf("Error: Unknown ghost class\n");
+            exit(C_FALSE); // Handle unknown ghost class
+    }
 
-  l_ghostEvidence(evType, ghost->currentRoom->name);
+    // Randomly select an evidence type from the array
+    int evIndex = randInt(0, 3);
+    EvidenceType selectedEvType = evTypeArray[evIndex];
+
+    // Add the selected evidence type to the room's evidence list
+    addEvidence(ghost->currentRoom->evidenceList, selectedEvType);
+
+    // Log the evidence left
+    l_ghostEvidence(selectedEvType, ghost->currentRoom->name);
 }
 
 void* ghost_thread(void* arg) {

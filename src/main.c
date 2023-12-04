@@ -14,7 +14,7 @@ int main() {
   HunterType* hunter = NULL;
   char hunterName[MAX_STR];
   for (int i = 0; i < NUM_HUNTERS; i++) {
-    printf("\nEnter the name of hunter %d: ", i+1);
+    printf("Enter the name of hunter %d: ", i+1);
     scanf("%s", hunterName);
     while (getchar() != '\n');
     //TODO: Handle the case where hunters have the same name
@@ -22,7 +22,6 @@ int main() {
     house->hunters[i] = hunter;
     l_hunterInit(hunter->name, hunter->equipment);
   }
-  printf("\n\n");
 
   // 1.4 - Initialize and add ghost to a room
   GhostType* ghost = NULL;
@@ -45,15 +44,37 @@ int main() {
   printf("=======================================\n");
   printf("All done! Let's tally the results...   \n");
   printf("=======================================\n");
+  for (int i = 0; i < NUM_HUNTERS; i++) {
+    if (house->hunters[i]->fear >= FEAR_MAX) {
+      printf("        * %s has gotten too scared to continue!\n", house->hunters[i]->name);
+    } else if (house->hunters[i]->boredom >= BOREDOM_MAX) {
+      printf("        * %s has gotten too bored to continue!\n", house->hunters[i]->name);
+    }
+  }
   printf("---------------------------------------\n");
 
+
+  char ghostClassString[MAX_STR];
+  ghostToString(ghost->ghostClass, ghostClassString);
   if (house->huntersWon == 1) {
-    char ghostClassString[MAX_STR];
-    ghostToString(ghost->ghostClass, ghostClassString);
+    // Case 0: hunters won
     printf("It seems the ghost has been discovered!\nThe hunters have won the game!\n");
-    printf("The hunters concluded the ghost is a %s using the evidence they found:\n", ghostClassString);
+    printf("They have concluded that the ghost is a %s.\n", ghostClassString);
   } else {
-    printf("TEMP: GHOST HAS WON"); //! temp
+    // Case 1: ghost won
+    printf("The hunters failed!\n");
+    printf("Using the evidence they found, they incorrectly determined that the ghost is a Unknown\n");
+    printf("The ghost is actually a %s\n", ghostClassString);
+  }
+
+  // Print all evidence found
+  printf("The hunters collected the following evidence:\n");
+  EvidenceNodeType* currEvidence = house->evidenceList->head;
+  char buffer[MAX_STR];
+  for (int i = 0; i < house->evidenceList->size; i++) {
+    evidenceToString(currEvidence->data, buffer);
+    printf("    * %s\n", buffer);
+    currEvidence = currEvidence->next;
   }
 
   cleanupHouse(house);
