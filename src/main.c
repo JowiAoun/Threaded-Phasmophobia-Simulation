@@ -44,5 +44,18 @@ int main() {
     pthread_join(threads[i], NULL);
   }
 
+  // Define who won
+  printf("=======================================\n");
+  printf("All done! Let's tally the results...   \n");
+  printf("=======================================\n");
+  printf("---------------------------------------\n");
+
+  if (house->huntersWon == 1) {
+    char ghostClassString[MAX_STR];
+    ghostToString(ghost->ghostClass, ghostClassString);
+    printf("It seems the ghost has been discovered!\nThe hunters have won the game!\n");
+    printf("The hunters concluded the ghost is a %s using the evidence they found:\n", ghostClassString);
+  }
+
   return C_TRUE;
 }

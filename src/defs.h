@@ -48,8 +48,9 @@ struct House {
   HunterType*       hunters[NUM_HUNTERS];
   RoomListType*     roomList; // all rooms in the house
   EvidenceListType* evidenceList;
-  int huntersWon; // 1 if hunters have won, 0 otherwise
-  pthread_mutex_t mutex; // Mutex for synchronizing access to huntersWon
+  int               huntersWon; // 1 if hunters have won, 0 otherwise
+  pthread_mutex_t   mutex; // Mutex for synchronizing access to huntersWon
+  GhostClass        ghostClass;
 };
 
 struct Ghost {

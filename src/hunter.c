@@ -90,7 +90,7 @@ void reviewEvidence(HunterType* hunter) {
     count = 0;
 
     for (int i = 0; i < 4; i++) {
-      //printf("------ EVIDENCE COUNT: %d\n", evidenceCounts[i]); //! test
+      printf("------ EVIDENCE COUNT: %d\n", evidenceCounts[i]); //! test
       if (evidenceCounts[i] > 1) {
         count++;
       }
@@ -137,12 +137,19 @@ void* hunter_thread(void* arg) {
         break;
     }
 
-    if (hunter->boredom >= BOREDOM_MAX) {
+    if (hunter->house->huntersWon == 1) {
+      // Case 0: hunters won
+      removeHunter(hunter);
+      return NULL;
+
+    } else if (hunter->boredom >= BOREDOM_MAX) {
+      // Case 1: this hunter is bored -> leaves
       l_hunterExit(hunter->name, LOG_BORED);
       removeHunter(hunter);
       return NULL;
 
     } else if (hunter->fear >= FEAR_MAX) {
+      // Case 2: this hunter is feared -> leaves
       l_hunterExit(hunter->name, LOG_FEAR);
       removeHunter(hunter);
       return NULL;

@@ -7,6 +7,7 @@ void initGhost(GhostType** ghost, HouseType* house) {
   (*ghost)->currentRoom = NULL;
   (*ghost)->boredom = 0;
   (*ghost)->house = house;
+  (*ghost)->house->ghostClass = (*ghost)->ghostClass;
 }
 
 void addGhost(RoomListType* roomList, GhostType** ghost) {
@@ -61,7 +62,7 @@ void moveGhostRooms(GhostType* ghost) {
 
 void leaveEvidence(GhostType* ghost) {
   // 2.4 - Leave evidence
-  int evType = randInt(0, 2);
+  int evType = randInt(0, 3);
   EvidenceType evTypeArray[3];
 
   switch (ghost->ghostClass) {
