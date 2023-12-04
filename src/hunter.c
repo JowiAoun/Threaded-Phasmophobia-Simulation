@@ -87,15 +87,17 @@ void reviewEvidence(HunterType* hunter) {
     }
 
     int evidenceCounts[] = {numEmf, numTemperature, numFingerprints, numSound};
-    int count = 0;
+    count = 0;
 
     for (int i = 0; i < 4; i++) {
+      //printf("------ EVIDENCE COUNT: %d\n", evidenceCounts[i]); //! test
       if (evidenceCounts[i] > 1) {
         count++;
       }
     }
   }
 
+  printf("-------- EVIDENCE COUNT IN REVIEW: %d\n", count); //!test
   if (count >= 3) {
     pthread_mutex_lock(&(hunter->house->mutex));
     hunter->house->huntersWon = 1;
