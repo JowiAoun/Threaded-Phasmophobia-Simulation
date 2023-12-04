@@ -181,9 +181,6 @@ void removeHunter(HunterType* hunter) {
     if (hunter->room->hunters[i]) {
       if (strcmp(hunter->room->hunters[i]->name, hunter->name) == 0) {
         hunter->room->hunters[i] = NULL;
-        pthread_mutex_lock(&(hunter->house->mutex));
-        hunter->house->activeHunters--;
-        pthread_mutex_unlock(&(hunter->house->mutex));
         free(hunter);
         break;
       }

@@ -57,43 +57,42 @@ void moveHunterRooms(HunterType* hunter) {
 
 
 void reviewEvidence(HunterType* hunter) {
-  if (hunter->evidenceList->size < 3) {
-    // Case: not enough evidence to review
-    return;
-  }
-
-  int numEmf = 0, numTemperature = 0, numFingerprints = 0, numSound = 0;
-
-  EvidenceNodeType* currEvidence = hunter->evidenceList->head;
-
-  for (int i = 0; i < hunter->evidenceList->size; i++) {
-    
-    switch (currEvidence->data) {
-      case EMF:
-        numEmf++;
-        break;
-      case TEMPERATURE:
-        numTemperature++;
-        break;
-      case FINGERPRINTS:
-        numFingerprints++;
-        break;
-      case SOUND:
-        numSound++;
-        break;
-      default:
-        break;
-    }
-    currEvidence = currEvidence->next;
-
-  }
-
-  int evidenceCounts[] = {numEmf, numTemperature, numFingerprints, numSound};
   int count = 0;
 
-  for (int i = 0; i < 4; i++) {
-    if (evidenceCounts[i] > 1) {
-      count++;
+  if (hunter->evidenceList->size >= 3) {
+    int numEmf = 0, numTemperature = 0, numFingerprints = 0, numSound = 0;
+
+    EvidenceNodeType* currEvidence = hunter->evidenceList->head;
+
+    for (int i = 0; i < hunter->evidenceList->size; i++) {
+      
+      switch (currEvidence->data) {
+        case EMF:
+          numEmf++;
+          break;
+        case TEMPERATURE:
+          numTemperature++;
+          break;
+        case FINGERPRINTS:
+          numFingerprints++;
+          break;
+        case SOUND:
+          numSound++;
+          break;
+        default:
+          break;
+      }
+      currEvidence = currEvidence->next;
+
+    }
+
+    int evidenceCounts[] = {numEmf, numTemperature, numFingerprints, numSound};
+    int count = 0;
+
+    for (int i = 0; i < 4; i++) {
+      if (evidenceCounts[i] > 1) {
+        count++;
+      }
     }
   }
 

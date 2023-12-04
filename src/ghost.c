@@ -53,7 +53,7 @@ void moveGhostRooms(GhostType* ghost) {
     currentRoom = currentRoom->next;
   }
 
-  currentRoom->data->ghost = NULL;
+  ghost->currentRoom->ghost = NULL;
   ghost->currentRoom = currentRoom->data;
   currentRoom->data->ghost = ghost;
   l_ghostMove(currentRoom->data->name);
@@ -122,18 +122,10 @@ void* ghost_thread(void* arg) {
       action = randInt(0, 3);
       chooseGhostAction(ghost, action);
     }
-    pthread_mutex_lock(&(ghost->house->mutex));
-    int huntersRemaining = ghost->house->activeHunters;
-    pthread_mutex_unlock(&(ghost->house->mutex));
-
-    if (huntersRemaining == 0) {
-      break; // Exit if no hunters are left
-      
-    }
-
   }
 
   // 2.5 - Exit thread statements
+  ghost->currentRoom->ghost = NULL;
   l_ghostExit(LOG_BORED);
   return NULL;
 }

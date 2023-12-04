@@ -50,7 +50,6 @@ struct House {
   EvidenceListType* evidenceList;
   int huntersWon; // 1 if hunters have won, 0 otherwise
   pthread_mutex_t mutex; // Mutex for synchronizing access to huntersWon
-  int               activeHunters;
 };
 
 struct Ghost {
