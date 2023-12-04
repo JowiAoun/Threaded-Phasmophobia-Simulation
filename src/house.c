@@ -97,6 +97,9 @@ void initHouse(HouseType** house) {
   
   initRoomList(&(*house)->roomList);
   initEvidenceList(&(*house)->evidenceList);
+  (*house)->huntersWon = 0;
+  pthread_mutex_init(&((*house)->mutex), NULL);
+  (*house)->activeHunters = NUM_HUNTERS;
 }
 
 void initRoomList(RoomListType** roomList) {

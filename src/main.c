@@ -18,7 +18,7 @@ int main() {
     scanf("%s", hunterName);
     while (getchar() != '\n');
     //TODO: Handle the case where hunters have the same name
-    initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter);
+    initHunter(hunterName, i, house->roomList->head->data, house->evidenceList, &hunter, house);
     house->hunters[i] = hunter;
     l_hunterInit(hunter->name, hunter->equipment);
   }
@@ -26,7 +26,7 @@ int main() {
 
   // 1.4 - Initialize and add ghost to a room
   GhostType* ghost = NULL;
-  initGhost(&ghost);
+  initGhost(&ghost, house);
   addGhost(house->roomList, &ghost);
 
   // 1.5 - Create threads

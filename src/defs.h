@@ -8,13 +8,13 @@
 
 #define MAX_STR         64
 #define MAX_RUNS        50
-#define BOREDOM_MAX     100
+#define BOREDOM_MAX     100 //!temp test
 #define C_TRUE          1
 #define C_FALSE         0
 #define HUNTER_WAIT     5000
 #define GHOST_WAIT      600
 #define NUM_HUNTERS     4
-#define FEAR_MAX        10
+#define FEAR_MAX        10 //!temp test
 #define LOGGING         C_TRUE
 
 typedef enum EvidenceType EvidenceType;
@@ -48,12 +48,16 @@ struct House {
   HunterType*       hunters[NUM_HUNTERS];
   RoomListType*     roomList; // all rooms in the house
   EvidenceListType* evidenceList;
+  int huntersWon; // 1 if hunters have won, 0 otherwise
+  pthread_mutex_t mutex; // Mutex for synchronizing access to huntersWon
+  int               activeHunters;
 };
 
 struct Ghost {
   GhostClass  ghostClass;
   RoomType*   currentRoom;
   int         boredom;
+  HouseType*  house;
 };
 
 struct Hunter {
@@ -63,6 +67,7 @@ struct Hunter {
   EvidenceListType* evidenceList;
   int               fear;
   int               boredom;
+  HouseType*        house;
 };
 
 struct RoomNode {
@@ -131,7 +136,7 @@ void addRoom(RoomListType** roomList, RoomType* room);
 
 //* Functions: hunter.c
 void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
-                EvidenceListType* evidenceList, HunterType** hunter);
+                EvidenceListType* evidenceList, HunterType** hunter, HouseType* house);
 void* hunter_thread(void* arg);
 void collectEvidence(HunterType* hunter);
 void moveHunterRooms(HunterType* hunter);
@@ -140,7 +145,7 @@ void reviewEvidence(HunterType* hunter);
 
 
 //* Functions: ghost.c
-void initGhost(GhostType** ghost);
+void initGhost(GhostType** ghost, HouseType* house);
 void addGhost(RoomListType* roomList, GhostType** ghost);
 void chooseGhostAction(GhostType* ghost, int action);
 void moveGhostRooms(GhostType* ghost);

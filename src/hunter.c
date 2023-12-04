@@ -1,7 +1,7 @@
 #include "defs.h"
 
 void initHunter(char* name, enum EvidenceType equipment,
-                RoomType* room, EvidenceListType* evidenceList, HunterType** hunter){
+                RoomType* room, EvidenceListType* evidenceList, HunterType** hunter, HouseType* house){
 
   *hunter = (HunterType*)allocMemory(sizeof(HunterType));
 
@@ -11,6 +11,7 @@ void initHunter(char* name, enum EvidenceType equipment,
   (*hunter)->evidenceList = evidenceList;
   (*hunter)->fear = 0;
   (*hunter)->boredom = 0;
+  (*hunter)->house = house;
 }
 
 void collectEvidence(HunterType* hunter) {
@@ -66,7 +67,6 @@ void reviewEvidence(HunterType* hunter) {
   EvidenceNodeType* currEvidence = hunter->evidenceList->head;
 
   for (int i = 0; i < hunter->evidenceList->size; i++) {
-    currEvidence = currEvidence->next;
     
     switch (currEvidence->data) {
       case EMF:
@@ -84,6 +84,8 @@ void reviewEvidence(HunterType* hunter) {
       default:
         break;
     }
+    currEvidence = currEvidence->next;
+
   }
 
   int evidenceCounts[] = {numEmf, numTemperature, numFingerprints, numSound};
@@ -96,6 +98,9 @@ void reviewEvidence(HunterType* hunter) {
   }
 
   if (count >= 3) {
+    pthread_mutex_lock(&(hunter->house->mutex));
+    hunter->house->huntersWon = 1;
+    pthread_mutex_unlock(&(hunter->house->mutex));
     l_hunterReview(hunter->name, LOG_SUFFICIENT);
   } else {
     l_hunterReview(hunter->name, LOG_INSUFFICIENT);
@@ -104,6 +109,7 @@ void reviewEvidence(HunterType* hunter) {
 
 void* hunter_thread(void* arg) {
   HunterType* hunter = (HunterType*) arg;
+  // HouseType* house = hunter->house; // Assuming house is added to HunterType
 
   while (1) {
     usleep(HUNTER_WAIT);
@@ -116,7 +122,7 @@ void* hunter_thread(void* arg) {
       hunter->boredom += 1;
     }
     // 3.2
-    int action = randInt(0,2);
+    int action = randInt(0,3);
     
     switch(action) {
       case 0:

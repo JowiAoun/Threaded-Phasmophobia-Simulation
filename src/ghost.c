@@ -1,11 +1,12 @@
 #include "defs.h"
 
-void initGhost(GhostType** ghost) {
+void initGhost(GhostType** ghost, HouseType* house) {
   *ghost = (GhostType*)allocMemory(sizeof(GhostType));
 
   (*ghost)->ghostClass = randomGhost();
   (*ghost)->currentRoom = NULL;
   (*ghost)->boredom = 0;
+  (*ghost)->house = house;
 }
 
 void addGhost(RoomListType* roomList, GhostType** ghost) {
@@ -101,6 +102,13 @@ void* ghost_thread(void* arg) {
 
   while (ghost->boredom < BOREDOM_MAX) {
     usleep(GHOST_WAIT);
+    pthread_mutex_lock(&(ghost->house->mutex));
+    int won = ghost->house->huntersWon;
+    pthread_mutex_unlock(&(ghost->house->mutex));
+
+    if (won) {
+      break;
+    }
 
     if (ghost->currentRoom->hunters[0] != NULL) {
       
@@ -114,6 +122,15 @@ void* ghost_thread(void* arg) {
       action = randInt(0, 3);
       chooseGhostAction(ghost, action);
     }
+    pthread_mutex_lock(&(ghost->house->mutex));
+    int huntersRemaining = ghost->house->activeHunters;
+    pthread_mutex_unlock(&(ghost->house->mutex));
+
+    if (huntersRemaining == 0) {
+      break; // Exit if no hunters are left
+      
+    }
+
   }
 
   // 2.5 - Exit thread statements
