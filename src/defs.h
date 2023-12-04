@@ -8,13 +8,13 @@
 
 #define MAX_STR         64
 #define MAX_RUNS        50
-#define BOREDOM_MAX     100 //!temp test
+#define BOREDOM_MAX     100
 #define C_TRUE          1
 #define C_FALSE         0
 #define HUNTER_WAIT     5000
 #define GHOST_WAIT      600
 #define NUM_HUNTERS     4
-#define FEAR_MAX        10 //!temp test
+#define FEAR_MAX        10
 #define LOGGING         C_TRUE
 
 typedef enum EvidenceType EvidenceType;
@@ -132,6 +132,7 @@ void connectRooms(RoomType* room1, RoomType* room2);
     Input: RoomType* room - the room to be added
 */
 void addRoom(RoomListType** roomList, RoomType* room);
+void cleanupHouse(HouseType* house);
 
 
 //* Functions: hunter.c
@@ -140,7 +141,7 @@ void initHunter(char* name, enum EvidenceType equipment, RoomType* room,
 void* hunter_thread(void* arg);
 void collectEvidence(HunterType* hunter);
 void moveHunterRooms(HunterType* hunter);
-void reviewEvidence(HunterType* hunter);
+int reviewEvidence(HunterType* hunter);
 
 
 

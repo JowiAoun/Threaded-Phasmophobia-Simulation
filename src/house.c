@@ -107,3 +107,47 @@ void initRoomList(RoomListType** roomList) {
   (*roomList)->tail = NULL;
   (*roomList)->size = 0;
 }
+
+void cleanupHouse(HouseType* house) {
+  // Free each hunter's evidence list and the hunter itself
+  EvidenceNodeType* evidenceNode = house->evidenceList->head;
+  while (evidenceNode != NULL) {
+    EvidenceNodeType* nextNode = evidenceNode->next;
+    free(evidenceNode);
+    evidenceNode = nextNode;
+  }
+  
+  for (int i = 0; i < NUM_HUNTERS; i++) {
+    free(house->hunters[i]);
+  }
+  free(house->evidenceList);
+
+  // Free each room's evidence list, room list, and the room itself
+  RoomNodeType* roomNode = house->roomList->head;
+  while (roomNode != NULL) {
+    RoomType* room = roomNode->data;
+    EvidenceNodeType* evidenceNode = room->evidenceList->head;
+    while (evidenceNode != NULL) {
+      EvidenceNodeType* nextNode = evidenceNode->next;
+      free(evidenceNode);
+      evidenceNode = nextNode;
+    }
+    free(room->evidenceList);
+
+    RoomNodeType* connectedRoomNode = room->roomList->head;
+    while (connectedRoomNode != NULL) {
+      RoomNodeType* nextNode = connectedRoomNode->next;
+      free(connectedRoomNode);
+      connectedRoomNode = nextNode;
+    }
+    free(room->roomList);
+
+    RoomNodeType* nextNode = roomNode->next;
+    free(room);
+    free(roomNode);
+    roomNode = nextNode;
+  }
+  free(house->roomList);
+  
+  free(house);
+}

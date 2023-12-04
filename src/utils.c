@@ -84,7 +84,6 @@ void ghostToString(enum GhostClass ghost, char* buffer) {
     default:
       strcpy(buffer, "Unknown");
       break;
-    
   }
 }
 
@@ -181,7 +180,6 @@ void removeHunter(HunterType* hunter) {
     if (hunter->room->hunters[i]) {
       if (strcmp(hunter->room->hunters[i]->name, hunter->name) == 0) {
         hunter->room->hunters[i] = NULL;
-        free(hunter);
         break;
       }
     }

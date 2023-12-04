@@ -15,15 +15,10 @@ void initHunter(char* name, enum EvidenceType equipment,
 }
 
 void collectEvidence(HunterType* hunter) {
-  // TODO: turn return value to void, put l_hunterCollect in removeEvidence
   if (hunter->room->evidenceList->head != NULL) {
     int ret = removeEvidence(hunter->room->evidenceList, hunter->evidenceList, hunter->equipment);
     if (ret == 1) {
       l_hunterCollect(hunter->name, hunter->equipment, hunter->room->name);
-      printf("----- COLLECTED EVIDENCE -----");
-      for (int i = 0; i < 4; i++) {
-        printf("---- ");
-      }
     }
   }
 }
@@ -59,7 +54,7 @@ void moveHunterRooms(HunterType* hunter) {
   }
 }
 
-void reviewEvidence(HunterType* hunter) {
+int reviewEvidence(HunterType* hunter) {
   int count = 0;
 
   if (hunter->evidenceList->size >= 3) {
@@ -94,7 +89,7 @@ void reviewEvidence(HunterType* hunter) {
 
     for (int i = 0; i < 4; i++) {
       //printf("------ EVIDENCE COUNT: %d\n", evidenceCounts[i]); //! test
-      if (evidenceCounts[i] > 1) {
+      if (evidenceCounts[i] > 0) {
         count++;
       }
     }
@@ -106,8 +101,10 @@ void reviewEvidence(HunterType* hunter) {
     hunter->house->huntersWon = 1;
     pthread_mutex_unlock(&(hunter->house->mutex));
     l_hunterReview(hunter->name, LOG_SUFFICIENT);
+    return C_TRUE;
   } else {
     l_hunterReview(hunter->name, LOG_INSUFFICIENT);
+    return C_FALSE;
   }
 }
 
@@ -117,6 +114,7 @@ void* hunter_thread(void* arg) {
 
   while (1) {
     usleep(HUNTER_WAIT);
+    int evidenceSuccess = C_FALSE;
 
     // 3.1
     if (hunter->room->ghost != NULL) {
@@ -136,12 +134,13 @@ void* hunter_thread(void* arg) {
         moveHunterRooms(hunter);
         break;
       case 2:
-        reviewEvidence(hunter);
+        evidenceSuccess = reviewEvidence(hunter);
         break;
     }
 
-    if (hunter->house->huntersWon == 1) {
+    if (evidenceSuccess == C_TRUE) {
       // Case 0: hunters won
+      l_hunterExit(hunter->name, LOG_EVIDENCE);
       removeHunter(hunter);
       return NULL;
 
