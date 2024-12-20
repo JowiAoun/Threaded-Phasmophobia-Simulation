@@ -1,6 +1,6 @@
 #### Authors:
-    Jowi Aoun - 101272429
-    Param Desai - 101263669
+    Jowi Aoun
+    Param Desai
 #### Description:
 This project is designed for simulating multithreaded interactions between ghosts, hunters, and their environment in a haunted house scenario. The hunters carry a different type of equipment (EMF/TEMPERATURE/SOUND/FINGERPRINTS) and have to go around the house to catch 3 unique evidences in total to win. The ghost drops evidence based on its randomly selected type, of which drops 3 of these 4 types of evidence. For the hunters to lose and the ghost to win, the hunters have to either be too bored, or have a high enough fear level. At the end, all hunters that have left before reviewing successful evidence, will be printed to the output. This program includes many functionalities such as initializing and managing a house and ghost, hunters, logging activities, and utility functions.
 Bonus points to validate:
